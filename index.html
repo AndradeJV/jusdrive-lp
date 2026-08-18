@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JusDrive — os arquivos de cada processo, organizados num só lugar</title>
+<meta name="description" content="Organizador de arquivos para advogados. Guarde PDFs, fotos e vídeos dentro de cada processo e compartilhe por link com QR code. Grátis para começar.">
+<meta name="theme-color" content="#1C2E4A">
+<link rel="canonical" href="https://jusdrive.com.br/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:url" content="https://jusdrive.com.br/">
+<meta property="og:title" content="JusDrive — os arquivos de cada processo, organizados num só lugar">
+<meta property="og:description" content="Organizador de arquivos para advogados. Guarde PDFs, fotos e vídeos dentro de cada processo e compartilhe por link com QR code. Grátis para começar.">
+<link rel="icon" href="brand/png/jusdrive-icone-512.png" type="image/png">
+<link rel="apple-touch-icon" href="brand/png/jusdrive-icone-512.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper:#F6F3EC; --surface:#FFFFFF; --ink:#17233B; --navy:#1C2E4A; --navy-hover:#17233B;
+    --gold:#B0862F; --muted:#5A6472; --border:#E4E7EC; --chip:#EEF1F6;
+    --footer-muted:#C7CEDA; --footer-border:#2A3853; --footer-sub:#8794A8;
+    --serif:'Source Serif 4',Georgia,serif; --sans:'IBM Plex Sans',system-ui,sans-serif;
+  }
+  *, *::before, *::after { box-sizing:border-box; }
+  html { -webkit-text-size-adjust:100%; }
+  body { margin:0; background:var(--paper); color:var(--ink); font-family:var(--sans); -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+  h1, h2, p { margin:0; }
+  a { text-decoration:none; }
+  ul { margin:0; padding:0; list-style:none; }
+  img, svg { max-width:100%; }
+
+  /* ---------- layout helpers ---------- */
+  .container { max-width:1120px; margin:0 auto; padding-left:20px; padding-right:20px; }
+  .section { padding-top:56px; padding-bottom:56px; }
+  @media (min-width:900px) {
+    .container { padding-left:40px; padding-right:40px; }
+    .section { padding-top:88px; padding-bottom:88px; }
+  }
+  .eyebrow { font-size:14px; font-weight:600; letter-spacing:0.18em; color:var(--gold); }
+  .section-title { font-family:var(--serif); font-weight:600; font-size:clamp(27px,5vw,38px); line-height:1.2; }
+
+  /* ---------- buttons ---------- */
+  .btn { display:inline-block; border-radius:8px; font-weight:600; text-align:center; cursor:pointer;
+    transition:background-color .2s ease, color .2s ease, border-color .2s ease, box-shadow .25s ease; }
+  .btn-lg { font-size:clamp(17px,4vw,20px); padding:clamp(16px,5vw,22px) clamp(26px,9vw,40px); box-shadow:0 2px 8px rgba(28,46,74,.25); }
+  .btn-primary { background:var(--navy); color:#FFFFFF; border:1.5px solid var(--navy); }
+  .btn-primary:hover { background:var(--navy-hover); border-color:var(--navy-hover); color:#FFFFFF; }
+  .btn-outline { background:transparent; color:var(--navy); border:1.5px solid var(--navy); }
+  .btn-outline:hover { background:var(--navy-hover); color:#FFFFFF; border-color:var(--navy-hover); }
+
+  /* ---------- scroll reveal ---------- */
+  @keyframes jdFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+  @keyframes jdPulse { 0%{box-shadow:0 0 0 0 rgba(176,134,47,.45)} 70%{box-shadow:0 0 0 14px rgba(176,134,47,0)} 100%{box-shadow:0 0 0 0 rgba(176,134,47,0)} }
+  @keyframes jdCaret { 0%,45%{opacity:1} 55%,100%{opacity:0} }
+  @keyframes jdCardIn { from{opacity:0; transform:translateY(8px)} to{opacity:1; transform:none} }
+  html.jd-anim [data-reveal] { opacity:0; transform:translateY(22px); }
+  html.jd-anim [data-reveal].jd-shown { opacity:1; transform:none; transition:opacity .7s cubic-bezier(.22,.61,.36,1), transform .7s cubic-bezier(.22,.61,.36,1); }
+  html.jd-anim [data-reveal="1"].jd-shown { transition-delay:.09s }
+  html.jd-anim [data-reveal="2"].jd-shown { transition-delay:.18s }
+  html.jd-anim [data-reveal="3"].jd-shown { transition-delay:.27s }
+
+  /* ---------- header ---------- */
+  .site-header { position:sticky; top:0; z-index:20; background:rgba(246,243,236,.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--border); }
+  .header-inner { max-width:1120px; margin:0 auto; padding:14px 20px; display:flex; flex-wrap:wrap; align-items:center; gap:12px; }
+  .logo { order:0; display:flex; align-items:center; gap:10px; }
+  .logo-text { font-size:clamp(20px,5vw,24px); font-weight:700; letter-spacing:-0.02em; }
+  .logo-text span { color:var(--gold); }
+  .hamburger { order:1; margin-left:auto; display:flex; align-items:center; justify-content:center; width:38px; height:38px; border-radius:8px; border:1px solid var(--border); background:var(--surface); cursor:pointer; }
+  .header-cta { order:2; font-size:16px; padding:11px 20px; }
+  .menu-toggle { position:absolute; opacity:0; width:1px; height:1px; overflow:hidden; }
+  .nav { order:3; display:none; flex-direction:column; gap:2px; width:100%; padding-top:10px; margin-top:2px; border-top:1px solid var(--border); font-size:17px; }
+  .nav a { display:block; padding:10px 4px; color:var(--muted); transition:color .2s ease; }
+  .nav a:hover { color:var(--gold); }
+  .menu-toggle:checked ~ .nav { display:flex; }
+  @media (min-width:900px) {
+    .header-inner { padding:20px 40px; flex-wrap:nowrap; gap:32px; }
+    .hamburger { display:none; }
+    .nav { display:flex !important; flex-direction:row; width:auto; gap:28px; order:1; margin-left:auto; padding-top:0; margin-top:0; border-top:none; }
+    .nav a { padding:0; }
+    .header-cta { order:2; }
+  }
+
+  /* ---------- hero ---------- */
+  .hero { max-width:1120px; margin:0 auto; padding:48px 20px 56px; display:flex; flex-direction:column; gap:40px; }
+  @media (min-width:900px) { .hero { padding:88px 40px 96px; display:grid; grid-template-columns:1.05fr 0.95fr; gap:64px; align-items:center; } }
+  .hero-copy { display:flex; flex-direction:column; gap:24px; }
+  .hero-title { font-family:var(--serif); font-weight:600; font-size:clamp(32px,7vw,58px); line-height:1.12; letter-spacing:-0.018em; text-wrap:balance; }
+  .hero-sub { font-size:clamp(17px,2.4vw,21px); line-height:1.6; color:var(--muted); max-width:520px; text-wrap:pretty; }
+  .hero-actions { display:flex; align-items:center; gap:16px; flex-wrap:wrap; }
+  .hero-note { font-size:16px; color:var(--muted); line-height:1.5; }
+  .hero-features { display:flex; gap:24px; padding-top:12px; border-top:1px solid var(--border); font-size:16px; color:var(--muted); flex-wrap:wrap; }
+
+  .hero-mock { background:var(--surface); border:1px solid var(--border); border-radius:14px; overflow:hidden; box-shadow:0 18px 48px rgba(23,35,59,.12); animation:jdFloat 7s ease-in-out infinite; }
+  @media (prefers-reduced-motion:reduce) { .hero-mock { animation:none; } }
+  .mock-head { background:var(--navy); padding:18px 22px; display:flex; align-items:center; gap:10px; }
+  .mock-head .logo-text { font-size:18px; color:#FFFFFF; }
+  .mock-avatar { margin-left:auto; width:30px; height:30px; border-radius:8px; background:var(--gold); color:var(--navy); font-size:12px; font-weight:700; display:flex; align-items:center; justify-content:center; flex:none; }
+  .mock-body { background:var(--paper); padding:20px; display:flex; flex-direction:column; gap:14px; }
+  .search-box { background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:14px 16px; font-size:16px; display:flex; align-items:center; gap:8px; transition:box-shadow .2s ease; }
+  .search-box.active { box-shadow:0 0 0 3px rgba(28,46,74,.12); }
+  .search-box .placeholder { color:var(--muted); }
+  .search-box .value { color:var(--ink); font-weight:500; }
+  .caret { width:1.5px; height:18px; background:var(--navy); animation:jdCaret 1s step-end infinite; }
+  @media (prefers-reduced-motion:reduce) { .caret { animation:none; } }
+  .new-process-btn { background:var(--navy); color:#FFFFFF; border-radius:8px; padding:16px; font-size:17px; font-weight:600; text-align:center; }
+  .process-list { display:flex; flex-direction:column; gap:14px; }
+  .process-card { background:var(--surface); border:1px solid var(--border); border-left:4px solid var(--navy); border-radius:8px; padding:16px 18px; display:flex; flex-direction:column; gap:5px; animation:jdCardIn .35s ease both; }
+  .process-card.matched { border-left-color:var(--gold); }
+  .process-card.hidden { display:none; }
+  .process-name { font-size:17px; font-weight:600; line-height:1.3; }
+  .process-client { font-size:15px; color:var(--muted); }
+  .process-meta { display:flex; align-items:center; gap:8px; margin-top:2px; flex-wrap:wrap; }
+  .chip { font-size:13px; font-weight:600; color:var(--navy); background:var(--chip); border-radius:6px; padding:4px 8px; }
+  .process-date { font-size:14px; color:var(--muted); }
+
+  /* ---------- 3-up grid (problema / como funciona) ---------- */
+  .grid-3 { display:grid; grid-template-columns:1fr; }
+  @media (min-width:640px) { .grid-3 { grid-template-columns:1fr 1fr; } }
+  @media (min-width:900px) { .grid-3 { grid-template-columns:repeat(3,1fr); } }
+
+  .problem-section { background:var(--surface); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+  .problem-title { max-width:640px; }
+  .problem-grid { gap:32px; }
+  .problem-item { display:flex; flex-direction:column; gap:12px; }
+  .problem-item-label { font-family:var(--serif); font-size:22px; color:var(--gold); }
+  .problem-item-text { font-size:17px; line-height:1.6; color:var(--muted); }
+
+  .how-head { display:flex; flex-direction:column; gap:14px; max-width:620px; margin-bottom:40px; }
+  .step-grid { gap:24px; }
+  .step-card { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:28px; display:flex; flex-direction:column; gap:14px;
+    box-shadow:0 1px 2px rgba(23,35,59,.05); transition:transform .3s ease, box-shadow .3s ease, border-color .3s ease; }
+  .step-card:hover { transform:translateY(-6px); box-shadow:0 14px 32px rgba(23,35,59,.10); border-color:var(--gold); }
+  .step-number { width:44px; height:44px; border-radius:10px; background:var(--navy); color:var(--gold); font-family:var(--serif); font-size:22px; font-weight:600; display:flex; align-items:center; justify-content:center; }
+  .step-title { font-size:20px; font-weight:600; letter-spacing:-0.01em; }
+  .step-text { font-size:17px; line-height:1.6; color:var(--muted); }
+
+  /* ---------- compartilhar ---------- */
+  .share-section { background:var(--navy); color:#FFFFFF; }
+  .share-grid { display:grid; grid-template-columns:1fr; gap:40px; align-items:start; }
+  @media (min-width:900px) { .share-grid { grid-template-columns:1fr 1fr; gap:64px; align-items:center; } }
+  .share-copy { display:flex; flex-direction:column; gap:24px; }
+  .share-title { font-family:var(--serif); font-weight:600; font-size:clamp(28px,5.2vw,40px); line-height:1.15; color:#FFFFFF; }
+  .share-sub { font-size:18px; line-height:1.65; color:var(--footer-muted); text-wrap:pretty; }
+  .share-list { display:flex; flex-direction:column; gap:12px; font-size:17px; }
+  .share-list li { display:flex; gap:12px; align-items:baseline; }
+  .share-list li::before { content:"—"; color:var(--gold); }
+
+  .share-card { background:var(--surface); border-radius:14px; display:flex; flex-direction:column; gap:24px; box-shadow:0 18px 48px rgba(0,0,0,.22); padding:24px; }
+  @media (min-width:640px) { .share-card { padding:36px; } }
+  .share-card-head { display:flex; align-items:center; gap:10px; border-bottom:1px solid #EEF1F4; padding-bottom:18px; flex-wrap:wrap; }
+  .share-card-head .logo-text { font-size:18px; color:var(--ink); }
+  .share-card-badge { margin-left:auto; font-size:14px; color:var(--muted); }
+  .share-card-meta { display:flex; flex-direction:column; gap:6px; }
+  .share-card-label { font-size:13px; font-weight:600; letter-spacing:0.16em; color:var(--gold); }
+  .share-card-name { font-size:21px; font-weight:700; letter-spacing:-0.02em; color:var(--ink); line-height:1.25; }
+  .share-card-count { font-size:16px; color:var(--muted); }
+  .qr-row { display:flex; align-items:center; gap:20px; background:var(--paper); border-radius:10px; padding:18px; flex-wrap:wrap; }
+  .qr-box { background:var(--surface); padding:8px; border-radius:8px; flex:none; line-height:0; animation:jdPulse 3.2s ease-out infinite; }
+  @media (prefers-reduced-motion:reduce) { .qr-box { animation:none; } }
+  .qr-text { display:flex; flex-direction:column; gap:6px; min-width:0; flex:1; }
+  .qr-text strong { font-size:17px; font-weight:600; color:var(--ink); }
+  .qr-link { font-family:ui-monospace,Menlo,monospace; font-size:14px; color:var(--gold); overflow-wrap:anywhere; }
+  .files-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .file-card { border:1px solid var(--border); border-radius:8px; padding:12px 14px; display:flex; flex-direction:column; gap:4px; }
+  .file-name { font-size:15px; font-weight:600; color:var(--ink); overflow-wrap:anywhere; }
+  .file-meta { font-size:14px; color:var(--muted); }
+
+  /* ---------- planos ---------- */
+  .plans-head { display:flex; flex-direction:column; gap:14px; max-width:620px; margin-bottom:36px; }
+  .plans-sub { font-size:18px; color:var(--muted); line-height:1.6; }
+  .plans-grid { display:grid; grid-template-columns:1fr; gap:20px; align-items:stretch; margin-bottom:20px; }
+  @media (min-width:640px) { .plans-grid { grid-template-columns:1fr 1fr; } }
+  @media (min-width:1024px) { .plans-grid { grid-template-columns:repeat(4,1fr); } }
+  .plan-card { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:26px 22px; display:flex; flex-direction:column; gap:14px;
+    box-shadow:0 1px 2px rgba(23,35,59,.05); transition:transform .3s ease, box-shadow .3s ease; }
+  .plan-card:hover { transform:translateY(-6px); box-shadow:0 16px 36px rgba(23,35,59,.13); }
+  .plan-card--popular { border:1.5px solid var(--gold); box-shadow:0 8px 28px rgba(23,35,59,.10); }
+  .plan-card--ai { border:1px solid var(--navy); box-shadow:0 4px 18px rgba(23,35,59,.08); }
+  .plan-head { display:flex; align-items:center; gap:8px; min-height:26px; flex-wrap:wrap; }
+  .plan-name { font-size:19px; font-weight:600; }
+  .plan-badge { font-size:12px; font-weight:600; letter-spacing:0.1em; border-radius:6px; padding:4px 8px; background:var(--chip); color:var(--navy); }
+  .plan-badge--ai { background:var(--navy); color:var(--gold); }
+  .plan-price { display:flex; align-items:baseline; gap:6px; }
+  .plan-amount { font-family:var(--serif); font-size:clamp(27px,7vw,38px); font-weight:600; letter-spacing:-0.01em; }
+  .plan-period { font-size:16px; color:var(--muted); }
+  .plan-divider { height:1px; background:#EEF1F4; }
+  .plan-features { display:flex; flex-direction:column; gap:8px; font-size:16px; color:var(--ink); }
+  .plan-features li { display:flex; gap:8px; align-items:baseline; }
+  .plan-features li::before { content:"—"; color:var(--gold); }
+  .plan-cta { margin-top:auto; width:100%; font-size:17px; padding:16px; }
+  .plans-note { font-size:15px; color:var(--muted); }
+
+  /* ---------- cta final ---------- */
+  .cta-final-section { background:var(--surface); border-top:1px solid var(--border); }
+  .cta-final-inner { display:flex; flex-direction:column; align-items:center; gap:24px; text-align:center; }
+  .cta-title { font-family:var(--serif); font-weight:600; font-size:clamp(30px,6.5vw,44px); line-height:1.15; max-width:680px; text-wrap:balance; }
+  .cta-text { font-size:18px; color:var(--muted); max-width:560px; line-height:1.6; }
+
+  /* ---------- footer ---------- */
+  .site-footer { background:#17233B; color:var(--footer-muted); }
+  .footer-inner { padding-top:40px; padding-bottom:40px; display:flex; align-items:center; gap:28px; flex-wrap:wrap; }
+  .footer-logo { display:flex; align-items:center; gap:10px; }
+  .footer-logo .logo-text { font-size:20px; color:#FFFFFF; }
+  .footer-links { display:flex; gap:22px; font-size:15px; margin-left:auto; flex-wrap:wrap; }
+  .footer-links a { color:var(--footer-muted); transition:color .2s ease; }
+  .footer-links a:hover { color:var(--gold); }
+  .footer-bottom { width:100%; border-top:1px solid var(--footer-border); padding-top:20px; font-size:14px; color:var(--footer-sub); }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="logo">
+      <svg width="34" height="34" viewBox="0 0 48 48" style="display:block; flex:none">
+        <rect x="2" y="2" width="44" height="44" rx="12" fill="#1C2E4A"></rect>
+        <circle cx="20" cy="17" r="4.6" fill="#B0862F"></circle>
+        <circle cx="27.5" cy="16" r="6" fill="#B0862F"></circle>
+        <path d="M11 20.5a3 3 0 0 1 3-3h5.6l2.2 2.6H34a3 3 0 0 1 3 3v9.4a3 3 0 0 1-3 3H14a3 3 0 0 1-3-3z" fill="#B0862F"></path>
+      </svg>
+      <div class="logo-text">Jus<span>Drive</span></div>
+    </div>
+    <input type="checkbox" id="jd-menu-toggle" class="menu-toggle">
+    <a href="https://app.jusdrive.com.br" class="btn btn-primary header-cta">Entrar</a>
+    <label for="jd-menu-toggle" class="hamburger" aria-label="Abrir menu">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#17233B" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </label>
+    <nav class="nav">
+      <a href="#como-funciona">Como funciona</a>
+      <a href="#compartilhar">Compartilhar</a>
+      <a href="#planos">Planos</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-copy" data-reveal="0">
+    <div class="eyebrow">ORGANIZE SEUS PROCESSOS</div>
+    <h1 class="hero-title">Todos os arquivos de cada processo, num só lugar.</h1>
+    <p class="hero-sub">Guarde PDFs, fotos, prints e vídeos dentro do processo a que pertencem. Quando precisar mostrar ao cliente, envie um link ou o QR code. Sem pastas confusas, sem cadastro para quem recebe.</p>
+    <div class="hero-actions">
+      <a href="https://app.jusdrive.com.br" class="btn btn-primary btn-lg">Criar minha conta grátis</a>
+      <div class="hero-note">Leva 2 minutos. Sem cartão.<br>Planos a partir de R$ 59,90/mês.</div>
+    </div>
+    <div class="hero-features">
+      <div>Feito para advogado autônomo</div>
+      <div>Funciona no celular e no computador</div>
+    </div>
+  </div>
+
+  <div class="hero-mock" data-reveal="2">
+    <div class="mock-head">
+      <svg width="26" height="26" viewBox="0 0 48 48" style="display:block; flex:none">
+        <rect x="2" y="2" width="44" height="44" rx="12" fill="#B0862F"></rect>
+        <circle cx="20" cy="17" r="4.6" fill="#1C2E4A"></circle>
+        <circle cx="27.5" cy="16" r="6" fill="#1C2E4A"></circle>
+        <path d="M11 20.5a3 3 0 0 1 3-3h5.6l2.2 2.6H34a3 3 0 0 1 3 3v9.4a3 3 0 0 1-3 3H14a3 3 0 0 1-3-3z" fill="#1C2E4A"></path>
+      </svg>
+      <div class="logo-text">Jus<span>Drive</span></div>
+      <div class="mock-avatar">RM</div>
+    </div>
+    <div class="mock-body">
+      <div class="search-box" id="search-box">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#5A6472" stroke-width="2" style="flex:none"><circle cx="11" cy="11" r="7"></circle><path d="M16.5 16.5 21 21"></path></svg>
+        <span class="placeholder" id="search-placeholder">Buscar por processo ou cliente</span>
+        <span class="value" id="search-value"></span>
+        <span class="caret"></span>
+      </div>
+      <div class="new-process-btn">+ Novo processo</div>
+      <div class="process-list" id="process-list">
+        <div class="process-card" data-name="Ação Trabalhista — Silva x Transportes Ipê" data-client="João Batista da Silva">
+          <div class="process-name">Ação Trabalhista — Silva x Transportes Ipê</div>
+          <div class="process-client">João Batista da Silva</div>
+          <div class="process-meta"><span class="chip">12 arquivos</span><span class="process-date">atualizado em 14 de agosto</span></div>
+        </div>
+        <div class="process-card" data-name="Inventário — Espólio de Maria Ferreira" data-client="Ana Ferreira Lopes">
+          <div class="process-name">Inventário — Espólio de Maria Ferreira</div>
+          <div class="process-client">Ana Ferreira Lopes</div>
+          <div class="process-meta"><span class="chip">34 arquivos</span><span class="process-date">atualizado em 9 de agosto</span></div>
+        </div>
+        <div class="process-card" data-name="Divórcio consensual — Souza" data-client="Carlos e Regina Souza">
+          <div class="process-name">Divórcio consensual — Souza</div>
+          <div class="process-client">Carlos e Regina Souza</div>
+          <div class="process-meta"><span class="chip">7 arquivos</span><span class="process-date">atualizado em 2 de agosto</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="problem-section">
+  <div class="container section">
+    <h2 class="section-title problem-title">Onde estão os documentos daquele processo?</h2>
+    <div class="grid-3 problem-grid" style="margin-top:40px">
+      <div class="problem-item" data-reveal="1">
+        <div class="problem-item-label">Hoje</div>
+        <div class="problem-item-text">Prints no WhatsApp, PDFs no e-mail, fotos na galeria do celular. Cada processo espalhado em quatro lugares.</div>
+      </div>
+      <div class="problem-item" data-reveal="1">
+        <div class="problem-item-label">Com o JusDrive</div>
+        <div class="problem-item-text">Um processo, uma pasta. Tudo que chega vai para dentro dele, no celular ou no computador.</div>
+      </div>
+      <div class="problem-item" data-reveal="1">
+        <div class="problem-item-label">Na hora de mostrar</div>
+        <div class="problem-item-text">Um link, ou um QR code para o cliente apontar a câmera. Ele vê os arquivos e não altera nada.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="como-funciona" class="container section">
+  <div class="how-head">
+    <div class="eyebrow">COMO FUNCIONA</div>
+    <h2 class="section-title">Três passos, e pronto.</h2>
+  </div>
+  <div class="grid-3 step-grid">
+    <div class="step-card" data-reveal="1">
+      <div class="step-number">1</div>
+      <div class="step-title">Crie o processo</div>
+      <div class="step-text">Dê o nome do processo e o nome do cliente. É o único cadastro que existe.</div>
+    </div>
+    <div class="step-card" data-reveal="2">
+      <div class="step-number">2</div>
+      <div class="step-title">Junte os arquivos</div>
+      <div class="step-text">Arraste PDFs ou envie fotos e prints direto do celular. Tudo fica dentro do processo.</div>
+    </div>
+    <div class="step-card" data-reveal="3">
+      <div class="step-number">3</div>
+      <div class="step-title">Compartilhe o link</div>
+      <div class="step-text">Cada processo tem um link com QR code, somente leitura. Mande pelo WhatsApp e pronto.</div>
+    </div>
+  </div>
+</section>
+
+<section id="compartilhar" class="share-section">
+  <div class="container section share-grid">
+    <div class="share-copy" data-reveal="0">
+      <div class="eyebrow">LINK E QR CODE</div>
+      <h2 class="share-title">O cliente abre e vê. Nada para instalar.</h2>
+      <p class="share-sub">Cada processo tem um link próprio, somente leitura. Mande pelo WhatsApp ou mostre o QR code na sua tela para o cliente apontar a câmera do celular. Ele não precisa criar conta nem saber usar nada.</p>
+      <ul class="share-list">
+        <li>Somente leitura: ninguém apaga ou altera seus arquivos.</li>
+        <li>Você desliga o link quando quiser.</li>
+        <li>Funciona com PDF, foto, print e vídeo.</li>
+      </ul>
+    </div>
+
+    <div class="share-card" data-reveal="2">
+      <div class="share-card-head">
+        <svg width="26" height="26" viewBox="0 0 48 48" style="display:block; flex:none">
+          <rect x="2" y="2" width="44" height="44" rx="12" fill="#1C2E4A"></rect>
+          <circle cx="20" cy="17" r="4.6" fill="#B0862F"></circle>
+          <circle cx="27.5" cy="16" r="6" fill="#B0862F"></circle>
+          <path d="M11 20.5a3 3 0 0 1 3-3h5.6l2.2 2.6H34a3 3 0 0 1 3 3v9.4a3 3 0 0 1-3 3H14a3 3 0 0 1-3-3z" fill="#B0862F"></path>
+        </svg>
+        <div class="logo-text">Jus<span>Drive</span></div>
+        <div class="share-card-badge">Somente leitura</div>
+      </div>
+      <div class="share-card-meta">
+        <div class="share-card-label">PROCESSO COMPARTILHADO</div>
+        <div class="share-card-name">Ação Trabalhista — Silva x Transportes Ipê</div>
+        <div class="share-card-count">12 arquivos</div>
+      </div>
+      <div class="qr-row">
+        <div class="qr-box" id="qr-box"></div>
+        <div class="qr-text">
+          <strong>Aponte a câmera do celular</strong>
+          <span class="qr-link">jusdrive.com.br/p/4f2a</span>
+        </div>
+      </div>
+      <div class="files-grid">
+        <div class="file-card"><div class="file-name">Contrato assinado.pdf</div><div class="file-meta">PDF · 1,2 MB</div></div>
+        <div class="file-card"><div class="file-name">Foto do local.jpg</div><div class="file-meta">Imagem · 3,4 MB</div></div>
+        <div class="file-card"><div class="file-name">Print da conversa.png</div><div class="file-meta">Imagem · 820 KB</div></div>
+        <div class="file-card"><div class="file-name">Depoimento.mp4</div><div class="file-meta">Vídeo · 48 MB</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="planos" class="container section">
+  <div class="plans-head">
+    <div class="eyebrow">PLANOS</div>
+    <h2 class="section-title">Preço simples, como o produto.</h2>
+    <p class="plans-sub">Comece grátis. Planos pagos a partir de R$ 59,90 por mês.<br>Só o Premium tem os recursos de IA.</p>
+  </div>
+
+  <div class="plans-grid">
+    <div class="plan-card" data-reveal="0">
+      <div class="plan-head"><div class="plan-name">Gratuito</div></div>
+      <div class="plan-price"><span class="plan-amount">R$ 0</span><span class="plan-period">/mês</span></div>
+      <div class="plan-divider"></div>
+      <ul class="plan-features">
+        <li>1 processo</li><li>2 arquivos e vídeos</li><li>1 modelo de peça</li><li>Sem IA</li>
+      </ul>
+      <a href="https://app.jusdrive.com.br" class="btn btn-outline plan-cta">Criar conta</a>
+    </div>
+
+    <div class="plan-card" data-reveal="1">
+      <div class="plan-head"><div class="plan-name">Profissional</div></div>
+      <div class="plan-price"><span class="plan-amount">R$ 59,90</span><span class="plan-period">/mês</span></div>
+      <div class="plan-divider"></div>
+      <ul class="plan-features">
+        <li>9 processos</li><li>30 arquivos e vídeos</li><li>6 modelos de peça</li><li>Sem IA</li>
+      </ul>
+      <a href="https://app.jusdrive.com.br" class="btn btn-outline plan-cta">Assinar</a>
+    </div>
+
+    <div class="plan-card plan-card--popular" data-reveal="2">
+      <div class="plan-head"><div class="plan-name">Ilimitado</div><div class="plan-badge">MAIS POPULAR</div></div>
+      <div class="plan-price"><span class="plan-amount">R$ 99,90</span><span class="plan-period">/mês</span></div>
+      <div class="plan-divider"></div>
+      <ul class="plan-features">
+        <li>Processos ilimitados</li><li>Arquivos e vídeos ilimitados</li><li>Modelos ilimitados</li><li>Sem IA</li>
+      </ul>
+      <a href="https://app.jusdrive.com.br" class="btn btn-primary plan-cta">Assinar</a>
+    </div>
+
+    <div class="plan-card plan-card--ai" data-reveal="3">
+      <div class="plan-head"><div class="plan-name">Premium</div><div class="plan-badge plan-badge--ai">COM IA</div></div>
+      <div class="plan-price"><span class="plan-amount">R$ 149,90</span><span class="plan-period">/mês</span></div>
+      <div class="plan-divider"></div>
+      <ul class="plan-features">
+        <li>Tudo do Ilimitado</li><li>Gerar petições com IA</li><li>Resumir processos com IA</li><li>Recursos ilimitados</li>
+      </ul>
+      <a href="https://app.jusdrive.com.br" class="btn btn-outline plan-cta">Assinar</a>
+    </div>
+  </div>
+  <div class="plans-note">Todos os planos incluem link com QR code e acesso pelo celular. Sem contrato de fidelidade, cancele quando quiser.</div>
+</section>
+
+<section class="cta-final-section">
+  <div class="container section cta-final-inner">
+    <h2 class="cta-title" data-reveal="0">Organize o primeiro processo hoje.</h2>
+    <p class="cta-text">Crie sua conta, envie os arquivos e mande o link para o cliente. Sem treinamento, sem manual.</p>
+    <a href="https://app.jusdrive.com.br" class="btn btn-primary btn-lg">Criar minha conta grátis</a>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-logo">
+      <svg width="30" height="30" viewBox="0 0 48 48" style="display:block; flex:none">
+        <rect x="2" y="2" width="44" height="44" rx="12" fill="#B0862F"></rect>
+        <circle cx="20" cy="17" r="4.6" fill="#17233B"></circle>
+        <circle cx="27.5" cy="16" r="6" fill="#17233B"></circle>
+        <path d="M11 20.5a3 3 0 0 1 3-3h5.6l2.2 2.6H34a3 3 0 0 1 3 3v9.4a3 3 0 0 1-3 3H14a3 3 0 0 1-3-3z" fill="#17233B"></path>
+      </svg>
+      <div class="logo-text">Jus<span>Drive</span></div>
+    </div>
+    <div class="footer-links">
+      <a href="https://app.jusdrive.com.br">Entrar no app</a>
+      <a href="#planos">Planos</a>
+      <a href="mailto:contato@jusdrive.com.br">contato@jusdrive.com.br</a>
+    </div>
+    <div class="footer-bottom">© 2026 JusDrive. Todos os direitos reservados.</div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+  var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---- scroll reveal ---- */
+  function initReveal() {
+    if (reduceMotion) return;
+    document.documentElement.classList.add("jd-anim");
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        e.target.classList.add("jd-shown");
+        io.unobserve(e.target);
+      });
+    }, { rootMargin: "0px 0px -10% 0px", threshold: 0.08 });
+    document.querySelectorAll("[data-reveal]").forEach(function (el) {
+      var r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight * 0.92 && r.bottom > 0) { el.classList.add("jd-shown"); return; }
+      io.observe(el);
+    });
+  }
+
+  /* ---- hero search demo ---- */
+  function initSearchDemo() {
+    var box = document.getElementById("search-box");
+    var placeholder = document.getElementById("search-placeholder");
+    var value = document.getElementById("search-value");
+    var cards = Array.prototype.slice.call(document.querySelectorAll("#process-list .process-card"));
+    if (reduceMotion) return;
+
+    var alvo = "Silva", i = 0, apagando = false, timer;
+
+    function render(q) {
+      var has = q.length > 0;
+      placeholder.style.display = has ? "none" : "";
+      value.style.display = has ? "" : "none";
+      value.textContent = q;
+      box.classList.toggle("active", has);
+      var ql = q.toLowerCase();
+      cards.forEach(function (card) {
+        var text = (card.dataset.name + " " + card.dataset.client).toLowerCase();
+        var matches = !has || text.indexOf(ql) !== -1;
+        card.classList.toggle("hidden", !matches);
+        card.classList.toggle("matched", has && matches);
+      });
+    }
+
+    function tick() {
+      if (!apagando) {
+        i++;
+        render(alvo.slice(0, i));
+        if (i >= alvo.length) { apagando = true; timer = setTimeout(tick, 2600); return; }
+        timer = setTimeout(tick, 190);
+      } else {
+        i--;
+        render(alvo.slice(0, Math.max(i, 0)));
+        if (i <= 0) { apagando = false; timer = setTimeout(tick, 1600); return; }
+        timer = setTimeout(tick, 80);
+      }
+    }
+    render("");
+    timer = setTimeout(tick, 1800);
+  }
+
+  /* ---- deterministic QR-like SVG (same seeded pattern as the design prototype) ---- */
+  function renderQR(container, seed, size, color) {
+    var n = 25, s = seed >>> 0;
+    var svgNS = "http://www.w3.org/2000/svg";
+    var svg = document.createElementNS(svgNS, "svg");
+    svg.setAttribute("viewBox", "0 0 " + n + " " + n);
+    svg.setAttribute("width", size);
+    svg.setAttribute("height", size);
+    svg.setAttribute("shape-rendering", "crispEdges");
+    svg.style.display = "block";
+
+    function rnd() { s = (s * 1664525 + 1013904223) >>> 0; return s / 4294967296; }
+    function inBox(r, c, r0, c0) { return r >= r0 && r < r0 + 7 && c >= c0 && c < c0 + 7; }
+
+    for (var r = 0; r < n; r++) {
+      for (var c = 0; c < n; c++) {
+        var finder = inBox(r, c, 0, 0) || inBox(r, c, 0, n - 7) || inBox(r, c, n - 7, 0);
+        var on;
+        if (finder) {
+          var r0 = r < 7 ? 0 : n - 7, c0 = c < 7 ? 0 : n - 7;
+          on = Math.max(Math.abs(r - r0 - 3), Math.abs(c - c0 - 3)) !== 2;
+        } else if ((r < 8 && c < 8) || (r < 8 && c > n - 9) || (r > n - 9 && c < 8)) {
+          on = false;
+        } else {
+          on = rnd() > 0.5;
+        }
+        if (on) {
+          var rect = document.createElementNS(svgNS, "rect");
+          rect.setAttribute("x", c); rect.setAttribute("y", r);
+          rect.setAttribute("width", 1); rect.setAttribute("height", 1);
+          rect.setAttribute("fill", color);
+          svg.appendChild(rect);
+        }
+      }
+    }
+    container.appendChild(svg);
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    initReveal();
+    initSearchDemo();
+    renderQR(document.getElementById("qr-box"), 20260817, 116, "#17233B");
+  });
+})();
+</script>
+</body>
+</html>
