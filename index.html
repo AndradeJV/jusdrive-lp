@@ -192,7 +192,24 @@
   .plan-features li { display:flex; gap:8px; align-items:baseline; }
   .plan-features li::before { content:"—"; color:var(--gold); }
   .plan-cta { margin-top:auto; width:100%; font-size:17px; padding:16px; }
+  .plan-daily { font-size:14px; color:var(--muted); margin-top:-8px; }
   .plans-note { font-size:15px; color:var(--muted); }
+
+  /* ---------- trust bar ---------- */
+  .trust-bar { background:var(--surface); border-bottom:1px solid var(--border); }
+  .trust-bar-inner { display:flex; flex-wrap:wrap; gap:14px 32px; padding-top:20px; padding-bottom:20px; font-size:15px; color:var(--muted); }
+  .trust-bar-inner div { display:flex; align-items:baseline; gap:8px; }
+  .trust-bar-inner div::before { content:"✓"; color:var(--gold); font-weight:700; }
+
+  /* ---------- FAQ ---------- */
+  .faq-head { display:flex; flex-direction:column; gap:14px; max-width:620px; margin-bottom:32px; }
+  .faq-list { display:flex; flex-direction:column; }
+  .faq-item { border-bottom:1px solid var(--border); padding:20px 0; }
+  .faq-item summary { cursor:pointer; font-size:18px; font-weight:600; list-style:none; display:flex; align-items:baseline; gap:12px; }
+  .faq-item summary::-webkit-details-marker { display:none; }
+  .faq-item summary::before { content:"+"; color:var(--gold); font-family:var(--serif); font-size:22px; font-weight:600; flex:none; width:16px; }
+  .faq-item[open] summary::before { content:"–"; }
+  .faq-answer { font-size:16px; line-height:1.6; color:var(--muted); margin-top:12px; padding-left:28px; }
 
   /* ---------- cta final ---------- */
   .cta-final-section { background:var(--surface); border-top:1px solid var(--border); }
@@ -210,6 +227,69 @@
   .footer-links a:hover { color:var(--gold); }
   .footer-bottom { width:100%; border-top:1px solid var(--footer-border); padding-top:20px; font-size:14px; color:var(--footer-sub); }
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "name": "JusDrive",
+      "url": "https://jusdrive.com.br/",
+      "logo": "https://jusdrive.com.br/brand/png/jusdrive-icone-512.png",
+      "email": "contato@jusdrive.com.br"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "name": "JusDrive",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "description": "Organizador de arquivos para advogados autônomos. Guarde PDFs, fotos e vídeos dentro de cada processo e compartilhe por link com QR code.",
+      "url": "https://jusdrive.com.br/",
+      "offers": [
+        { "@type": "Offer", "name": "Gratuito", "price": "0", "priceCurrency": "BRL" },
+        { "@type": "Offer", "name": "Profissional", "price": "59.90", "priceCurrency": "BRL" },
+        { "@type": "Offer", "name": "Ilimitado", "price": "99.90", "priceCurrency": "BRL" },
+        { "@type": "Offer", "name": "Premium", "price": "149.90", "priceCurrency": "BRL" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Preciso instalar alguma coisa?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Não. O JusDrive funciona direto no navegador, tanto no celular quanto no computador." }
+        },
+        {
+          "@type": "Question",
+          "name": "O cliente que recebe o link precisa criar conta?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Não. Quem abre o link ou lê o QR code só vê os arquivos daquele processo — sem cadastro, sem senha." }
+        },
+        {
+          "@type": "Question",
+          "name": "Meus processos ficam visíveis para outras pessoas?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Não. Só você vê a lista dos seus processos. A única forma de alguém enxergar um deles é você mandar o link — e você pode desligar esse link quando quiser." }
+        },
+        {
+          "@type": "Question",
+          "name": "O JusDrive substitui o PJe ou o sistema do meu tribunal?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Não. O JusDrive não acompanha o andamento processual — ele é só o lugar onde você guarda os arquivos de cada processo, pra não ficar procurando em vários lugares." }
+        },
+        {
+          "@type": "Question",
+          "name": "Posso cancelar quando quiser?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Sim. Não tem contrato de fidelidade — você cancela quando quiser, direto na sua conta." }
+        },
+        {
+          "@type": "Question",
+          "name": "Posso trocar de plano depois?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Sim, você muda de plano quando quiser dentro da sua conta, sem perder os processos que já criou." }
+        }
+      ]
+    }
+  ]
+}
+</script>
 </head>
 <body>
 
@@ -233,6 +313,7 @@
       <a href="#como-funciona">Como funciona</a>
       <a href="#compartilhar">Compartilhar</a>
       <a href="#planos">Planos</a>
+      <a href="#duvidas">Dúvidas</a>
     </nav>
   </div>
 </header>
@@ -289,6 +370,15 @@
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+<section class="trust-bar">
+  <div class="container trust-bar-inner">
+    <div>Comece grátis, sem cartão</div>
+    <div>Sem contrato de fidelidade</div>
+    <div>Links somente leitura — você desliga quando quiser</div>
+    <div>Ninguém vê seus processos sem o link que você enviar</div>
   </div>
 </section>
 
@@ -393,6 +483,7 @@
     <div class="plan-card" data-reveal="0">
       <div class="plan-head"><div class="plan-name">Gratuito</div></div>
       <div class="plan-price"><span class="plan-amount">R$ 0</span><span class="plan-period">/mês</span></div>
+      <div class="plan-daily">Grátis para sempre, sem cartão</div>
       <div class="plan-divider"></div>
       <ul class="plan-features">
         <li>1 processo</li><li>2 arquivos e vídeos</li><li>1 modelo de peça</li><li>Sem IA</li>
@@ -403,6 +494,7 @@
     <div class="plan-card" data-reveal="1">
       <div class="plan-head"><div class="plan-name">Profissional</div></div>
       <div class="plan-price"><span class="plan-amount">R$ 59,90</span><span class="plan-period">/mês</span></div>
+      <div class="plan-daily">Menos de R$ 2 por dia</div>
       <div class="plan-divider"></div>
       <ul class="plan-features">
         <li>9 processos</li><li>30 arquivos e vídeos</li><li>6 modelos de peça</li><li>Sem IA</li>
@@ -413,6 +505,7 @@
     <div class="plan-card plan-card--popular" data-reveal="2">
       <div class="plan-head"><div class="plan-name">Ilimitado</div><div class="plan-badge">MAIS POPULAR</div></div>
       <div class="plan-price"><span class="plan-amount">R$ 99,90</span><span class="plan-period">/mês</span></div>
+      <div class="plan-daily">Menos de R$ 3,40 por dia</div>
       <div class="plan-divider"></div>
       <ul class="plan-features">
         <li>Processos ilimitados</li><li>Arquivos e vídeos ilimitados</li><li>Modelos ilimitados</li><li>Sem IA</li>
@@ -423,6 +516,7 @@
     <div class="plan-card plan-card--ai" data-reveal="3">
       <div class="plan-head"><div class="plan-name">Premium</div><div class="plan-badge plan-badge--ai">COM IA</div></div>
       <div class="plan-price"><span class="plan-amount">R$ 149,90</span><span class="plan-period">/mês</span></div>
+      <div class="plan-daily">Menos de R$ 5 por dia</div>
       <div class="plan-divider"></div>
       <ul class="plan-features">
         <li>Tudo do Ilimitado</li><li>Gerar petições com IA</li><li>Resumir processos com IA</li><li>Recursos ilimitados</li>
@@ -433,11 +527,45 @@
   <div class="plans-note">Todos os planos incluem link com QR code e acesso pelo celular. Sem contrato de fidelidade, cancele quando quiser.</div>
 </section>
 
+<section id="duvidas" class="container section">
+  <div class="faq-head">
+    <div class="eyebrow">DÚVIDAS</div>
+    <h2 class="section-title">Perguntas frequentes.</h2>
+  </div>
+  <div class="faq-list">
+    <details class="faq-item">
+      <summary>Preciso instalar alguma coisa?</summary>
+      <div class="faq-answer">Não. O JusDrive funciona direto no navegador, tanto no celular quanto no computador.</div>
+    </details>
+    <details class="faq-item">
+      <summary>O cliente que recebe o link precisa criar conta?</summary>
+      <div class="faq-answer">Não. Quem abre o link ou lê o QR code só vê os arquivos daquele processo — sem cadastro, sem senha.</div>
+    </details>
+    <details class="faq-item">
+      <summary>Meus processos ficam visíveis para outras pessoas?</summary>
+      <div class="faq-answer">Não. Só você vê a lista dos seus processos. A única forma de alguém enxergar um deles é você mandar o link — e você pode desligar esse link quando quiser.</div>
+    </details>
+    <details class="faq-item">
+      <summary>O JusDrive substitui o PJe ou o sistema do meu tribunal?</summary>
+      <div class="faq-answer">Não. O JusDrive não acompanha o andamento processual — ele é só o lugar onde você guarda os arquivos (PDFs, fotos, prints, vídeos) de cada processo, pra não ficar procurando em vários lugares.</div>
+    </details>
+    <details class="faq-item">
+      <summary>Posso cancelar quando quiser?</summary>
+      <div class="faq-answer">Sim. Não tem contrato de fidelidade — você cancela quando quiser, direto na sua conta.</div>
+    </details>
+    <details class="faq-item">
+      <summary>Posso trocar de plano depois?</summary>
+      <div class="faq-answer">Sim, você muda de plano quando quiser dentro da sua conta, sem perder os processos que já criou.</div>
+    </details>
+  </div>
+</section>
+
 <section class="cta-final-section">
   <div class="container section cta-final-inner">
     <h2 class="cta-title" data-reveal="0">Organize o primeiro processo hoje.</h2>
     <p class="cta-text">Crie sua conta, envie os arquivos e mande o link para o cliente. Sem treinamento, sem manual.</p>
     <a href="https://app.jusdrive.com.br" class="btn btn-primary btn-lg">Criar minha conta grátis</a>
+    <div class="hero-note">Comece pelo plano gratuito. Sem cartão, sem compromisso.</div>
   </div>
 </section>
 
@@ -454,8 +582,9 @@
     </div>
     <div class="footer-links">
       <a href="https://app.jusdrive.com.br">Entrar no app</a>
+      <a href="#duvidas">Dúvidas</a>
       <a href="#planos">Planos</a>
-      <a href="mailto:contato@jusdrive.com.br">contato@jusdrive.com.br</a>
+      <a href="mailto:contato@jusdrive.com.br">Fale com a gente — contato@jusdrive.com.br</a>
     </div>
     <div class="footer-bottom">© 2026 JusDrive. Todos os direitos reservados.</div>
   </div>
