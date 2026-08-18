@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  body { margin: 0; background: #F6F3EC; -webkit-font-smoothing: antialiased; }
+  a { color: #1C2E4A; text-decoration: none; }
+  a:hover { color: #B0862F; }
+</style>
+</helmet>
+
+<div style="background:#F6F3EC; color:#17233B; font-family:Inter,system-ui,sans-serif; padding:72px 64px 96px; min-height:100vh">
+
+  <div style="max-width:1680px; min-width:1400px; margin:0 auto">
+
+    <div style="display:flex; flex-direction:column; gap:14px; max-width:760px; margin-bottom:64px">
+      <div style="font-family:Inter; font-size:13px; letter-spacing:0.18em; text-transform:uppercase; color:#B0862F; font-weight:600">Estudo de identidade visual</div>
+      <h1 style="font-family:Spectral,Georgia,serif; font-weight:600; font-size:52px; line-height:1.1; margin:0; color:#17233B">Duas marcas para o mesmo produto</h1>
+      <p style="font-size:19px; line-height:1.6; color:#5A6472; margin:0; text-wrap:pretty">Mesmo sistema visual, mesmas telas, mesma ordem de elementos. A diferença está na personalidade da marca: uma tradicional e calorosa, outra moderna e geométrica.</p>
+    </div>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:0 56px; align-items:start">
+
+      <!-- COLUNA A: cabeçalho -->
+      <div style="display:flex; flex-direction:column; gap:8px; padding-bottom:28px; border-bottom:2px solid #17233B">
+        <div style="font-size:12px; letter-spacing:0.18em; text-transform:uppercase; color:#5A6472; font-weight:600">Coluna A</div>
+        <div style="font-family:Spectral,Georgia,serif; font-size:34px; font-weight:600">Meus Autos</div>
+        <div style="font-size:17px; color:#5A6472; line-height:1.5">Tradicional, calorosa, nativa do vocabulário jurídico.</div>
+      </div>
+
+      <!-- COLUNA B: cabeçalho -->
+      <div style="display:flex; flex-direction:column; gap:8px; padding-bottom:28px; border-bottom:2px solid #17233B">
+        <div style="font-size:12px; letter-spacing:0.18em; text-transform:uppercase; color:#5A6472; font-weight:600">Coluna B</div>
+        <div style="font-family:Inter; font-size:34px; font-weight:700; letter-spacing:-0.02em">JusDrive</div>
+        <div style="font-size:17px; color:#5A6472; line-height:1.5">Moderna, tecnológica, eficiente. "É como o Drive, mas jurídico."</div>
+      </div>
+
+      <!-- ================= 1 · LOGO ================= -->
+      <div style="grid-column:1/-1; display:flex; align-items:baseline; gap:16px; margin:64px 0 24px">
+        <div style="font-family:Spectral,Georgia,serif; font-size:15px; font-weight:600; color:#B0862F; letter-spacing:0.06em">01</div>
+        <div style="font-size:15px; font-weight:600; letter-spacing:0.14em; text-transform:uppercase">Logo</div>
+        <div style="flex:1; height:1px; background:#DED7C7"></div>
+      </div>
+
+      <!-- A: logo -->
+      <div style="display:flex; flex-direction:column; gap:20px">
+        <div style="background:#FFFFFF; border:1px solid #E7E1D4; border-radius:16px; box-shadow:0 1px 2px rgba(23,35,59,.05); padding:56px 48px; display:flex; align-items:center; gap:22px">
+          <svg width="62" height="62" viewBox="0 0 48 48" style="display:block; flex:none">
+            <path d="M4 13.5A4.5 4.5 0 0 1 8.5 9h9.8a3 3 0 0 1 2.4 1.2l2.4 3.3H39.5A4.5 4.5 0 0 1 44 18v18.5a4.5 4.5 0 0 1-4.5 4.5h-31A4.5 4.5 0 0 1 4 36.5z" fill="#B0862F"></path>
+            <rect x="12" y="20" width="24" height="2.4" rx="1.2" fill="#FFFFFF" opacity="0.85"></rect>
+            <rect x="12" y="26" width="17" height="2.4" rx="1.2" fill="#FFFFFF" opacity="0.6"></rect>
+            <rect x="12" y="32" width="21" height="2.4" rx="1.2" fill="#FFFFFF" opacity="0.4"></rect>
+          </svg>
+          <div style="display:flex; flex-direction:column; gap:4px">
+            <div style="font-family:Spectral,Georgia,serif; font-size:40px; font-weight:600; letter-spacing:-0.01em; color:#17233B; line-height:1">Meus Autos</div>
+            <div style="font-size:12px; letter-spacing:0.22em; text-transform:uppercase; color:#B0862F; font-weight:600">Arquivos do processo</div>
+          </div>
+        </div>
+        <div style="background:#1C2E4A; border-radius:16px; padding:56px 48px; display:flex; align-items:center; gap:22px">
+          <svg width="62" height="62" viewBox="0 0 48 48" style="display:block; flex:none">
+            <path d="M4 13.5A4.5 4.5 0 0 1 8.5 9h9.8a3 3 0 0 1 2.4 1.2l2.4 3.3H39.5A4.5 4.5 0 0 1 44 18v18.5a4.5 4.5 0 0 1-4.5 4.5h-31A4.5 4.5 0 0 1 4 36.5z" fill="#B0862F"></path>
+            <rect x="12" y="20" width="24" height="2.4" rx="1.2" fill="#1C2E4A" opacity="0.9"></rect>
+            <rect x="12" y="26" width="17" height="2.4" rx="1.2" fill="#1C2E4A" opacity="0.6"></rect>
+            <rect x="12" y="32" width="21" height="2.4" rx="1.2" fill="#1C2E4A" opacity="0.4"></rect>
+          </svg>
+          <div style="display:flex; flex-direction:column; gap:4px">
+            <div style="font-family:Spectral,Georgia,serif; font-size:40px; font-weight:600; letter-spacing:-0.01em; color:#F6F3EC; line-height:1">Meus Autos</div>
+            <div style="font-size:12px; letter-spacing:0.22em; text-transform:uppercase; color:#B0862F; font-weight:600">Arquivos do processo</div>
+          </div>
+        </div>
+        <div style="font-size:15px; color:#5A6472; line-height:1.6">Wordmark em Spectral, com o ícone de pasta-dossiê e as folhas do processo. Sem qualquer referência automotiva.</div>
+      </div>
+
+      <!-- B: logo -->
+      <div style="display:flex; flex-direction:column; gap:20px">
+        <div style="background:#FFFFFF; border:1px solid #E4E7EC; border-radius:10px; box-shadow:0 1px 2px rgba(23,35,59,.05); padding:56px 48px; display:flex; align-items:center; gap:20px">
+          <svg width="62" height="62" viewBox="0 0 48 48" style="display:block; flex:none">
+            <rect x="2" y="2" width="44" height="44" rx="12" fill="#1C2E4A"></rect>
+            <path d="M11 20.5a3 3 0 0 1 3-3h5.6l2.2 2.6H34a3 3 0 0 1 3 3v9.4a3 3 0 0 1-3 3H14a3 3 0 0 1-3-3z" fill="#B0862F"></path>
+            <circle cx="20" cy="17" r="4.6" fill="#B0862F"></circle>
+            <circle cx="27.5" cy="16" r="6" fill="#B0862F"></circle>
+          </svg>
+          <div style="display:flex; flex-direction:column; gap:4px">
+            <div style="font-family:Inter; font-size:40px; font-weight:700; letter-spacing:-0.035em; color:#17233B; line-height:1">Jus<span style="color:#B0862F">Drive</span></div>
+            <div style="font-size:12px; letter-spacing:0.22em; text-transform:uppercase; color:#5A6472; font-weight:600">Seus processos na nuvem</div>
+          </div>
+        </div>
+        <div style="background:#1C2E4A; border-radius:10px; padding:56px 48px; display:flex; align-items:center; gap:20px">
+          <svg width="62" height="62" viewBox="0 0 48 48" style="display:block; flex:none">
+            <rect x="2" y="2" width="44" height="44" rx="12" fill="#B0862F"></rect>
+            <path d="M11 20.5a3 3 0 0 1 3-3h5.6l2.2 2.6H34a3 3 0 0 1 3 3v9.4a3 3 0 0 1-3 3H14a3 3 0 0 1-3-3z" fill="#1C2E4A"></path>
+            <circle cx="20" cy="17" r="4.6" fill="#1C2E4A"></circle>
+            <circle cx="27.5" cy="16" r="6" fill="#1C2E4A"></circle>
+          </svg>
+          <div style="display:flex; flex-direction:column; gap:4px">
+            <div style="font-family:Inter; font-size:40px; font-weight:700; letter-spacing:-0.035em; color:#FFFFFF; line-height:1">Jus<span style="color:#B0862F">Drive</span></div>
+            <div style="font-size:12px; letter-spacing:0.22em; text-transform:uppercase; color:#B0862F; font-weight:600">Seus processos na nuvem</div>
+          </div>
+        </div>
+        <div style="font-size:15px; color:#5A6472; line-height:1.6">Wordmark em Inter, ícone de pasta fundida com nuvem dentro de um contêiner geométrico. Mesma paleta marinho + dourado.</div>
+      </div>
+
+      <!-- ================= 2 · PALETA ================= -->
+      <div style="grid-column:1/-1; display:flex; align-items:baseline; gap:16px; margin:80px 0 24px">
+        <div style="font-family:Spectral,Georgia,serif; font-size:15px; font-weight:600; color:#B0862F; letter-spacing:0.06em">02</div>
+        <div style="font-size:15px; font-weight:600; letter-spacing:0.14em; text-transform:uppercase">Paleta aplicada</div>
+        <div style="flex:1; height:1px; background:#DED7C7"></div>
+      </div>
+
+      <!-- A: paleta -->
+      <div style="background:#FFFFFF; border:1px solid #E7E1D4; border-radius:16px; box-shadow:0 1px 2px rgba(23,35,59,.05); padding:36px; display:flex; flex-direction:column; gap:24px">
+        <div style="font-family:Spectral,Georgia,serif; font-size:22px; font-weight:600">Meus Autos</div>
+        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:20px">
+          <div style="display:flex; flex-direction:column; gap:10px">
+            <div style="height:88px; border-radius:12px; background:#F6F3EC; border:1px solid #E7E1D4"></div>
+            <div style="font-size:15px; font-weight:600">Papel</div>
+            <div style="font-family:ui-monospace,Menlo,monospace; font-size:13px; color:#5A6472">#F6F3EC</div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:10px">
+            <div style="height:88px; border-radius:12px; background:#FFFFFF; border:1px solid #E7E1D4"></div>
+            <div style="font-size:15px; font-weight:600">Superfície</div>
+            <div style="font-family:ui-monospace,Menlo,monospace; font-size:13px; color:#5A6472">#FFFFFF</div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:10px">
+            <div style="height:88px; border-radius:12px; background:#17233B"></div>
+            <div style="font-size:15px; font-weight:600">Tinta</div>
+            <div style="font-family:ui-monospace,Menlo,monospace; font-size:13px; color:#5A6472">#17233B</div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:10px">
+            <div style="height:88px; border-radius:12px; background:#1C2E4A"></div>
+            <div style="font-size:15px; font-weight:600">Primária</div>
+            <div style="font-family:ui-monospace,Menlo,monospace; font-size:13px; color:#5A6472">#1C2E4A</div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:10px">
+            <div style="height:88px; border-radius:12px; background:#B0862F"></div>
+            <div style="font-size:15px; font-weight:600">Acento</div>
+            <div style="font-family:ui-monospace,Menlo,monospace; font-size:13px; color:#5A6472">#B0862F</div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:10px">
+            <div style="height:88px; border-radius:12px; background:#5A6472"></div>
+            <div style="font-size:15px; font-weight:600">Secundário</div>
+            <div style="font-family:ui-monospace,Menlo,monospace; font-size:13px; color:#5A6472">#5A6472</div>
+          </div>
+        </div>
+        <div style="border-top:1px solid #EFE9DC; padding-top:20px; display:flex; flex-direction:column; gap:6px">
+          <div style="font-family:Spectral,Georgia,serif; font-size:26px; font-weight:600">Spectral · títulos e marca</div>
+          <div style="font-size:17px; color:#5A6472">Inter · corpo e interface, mínimo 17px</div>
+        </div>
+      </div>
+
+      <!-- B: paleta -->
+      <div style="background:#FFFFFF; border:1px solid #E4E7EC; border-radius:10px; box-shadow:0 1px 2px rgba(23,35,59,.05); padding:36px; display:flex; flex-direction:column; gap:24px">
+        <div style="font-family:Inter; font-size:22px; font-weight:700; letter-spacing:-0.02em">JusDrive</div>
+        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:20px">
+          <div style="display:flex; flex-direction:column; gap:10px">
+            <div style="height:88px; border-radius:8px; background:#F6F3EC; border:1px solid #E4E7EC"></div>
+            <div style="font-size:15px; font-weight:600">Papel</div>
+            <div style="font-family:ui-monospace,Menlo,monospace; font-size:13px; color:#5A6472">#F6F3EC</div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:10px">
+            <div style="height:88px; border-radius:8px; background:#FFFFFF; border:1px solid #E4E7EC"></div>
+            <div style="font-size:15px; font-weight:600">Superfície</div>
+            <div style="font-family:ui-monospace,Menlo,monospace; font-size:13px; color:#5A6472">#FFFFFF</div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:10px">
+            <div style="height:88px; border-radius:8px; background:#17233B"></div>
+            <div style="font-size:15px; font-weight:600">Tinta</div>
+            <div style="font-family:ui-monospace,Menlo,monospace; font-size:13px; color:#5A6472">#17233B</div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:10px">
+            <div style="height:88px; border-radius:8px; background:#1C2E4A"></div>
+            <div style="font-size:15px; font-weight:600">Primária</div>
+            <div style="font-family:ui-monospace,Menlo,monospace; font-size:13px; color:#5A6472">#1C2E4A</div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:10px">
+            <div style="height:88px; border-radius:8px; background:#B0862F"></div>
+            <div style="font-size:15px; font-weight:600">Acento</div>
+            <div style="font-family:ui-monospace,Menlo,monospace; font-size:13px; color:#5A6472">#B0862F</div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:10px">
+            <div style="height:88px; border-radius:8px; background:#5A6472"></div>
+            <div style="font-size:15px; font-weight:600">Secundário</div>
+            <div style="font-family:ui-monospace,Menlo,monospace; font-size:13px; color:#5A6472">#5A6472</div>
+          </div>
+        </div>
+        <div style="border-top:1px solid #EEF1F4; padding-top:20px; display:flex; flex-direction:column; gap:6px">
+          <div style="font-family:Inter; font-size:26px; font-weight:700; letter-spacing:-0.02em">Inter · marca e interface</div>
+          <div style="font-family:Spectral,Georgia,serif; font-size:19px; color:#5A6472">Spectral · títulos editoriais e números de processo</div>
+        </div>
+      </div>
+
+      <!-- ================= 3 · MEUS PROCESSOS ================= -->
+      <div style="grid-column:1/-1; display:flex; align-items:baseline; gap:16px; margin:80px 0 24px">
+        <div style="font-family:Spectral,Georgia,serif; font-size:15px; font-weight:600; color:#B0862F; letter-spacing:0.06em">03</div>
+        <div style="font-size:15px; font-weight:600; letter-spacing:0.14em; text-transform:uppercase">Tela "Meus Processos"</div>
+        <div style="flex:1; height:1px; background:#DED7C7"></div>
+      </div>
+
+      <!-- A: app -->
+      <div style="background:#FFFFFF; border:1px solid #E7E1D4; border-radius:20px; overflow:hidden; box-shadow:0 6px 24px rgba(23,35,59,.07)">
+        <div style="background:#1C2E4A; padding:26px 32px; display:flex; align-items:center; justify-content:space-between">
+          <div style="display:flex; align-items:center; gap:12px">
+            <svg width="34" height="34" viewBox="0 0 48 48" style="display:block">
+              <path d="M4 13.5A4.5 4.5 0 0 1 8.5 9h9.8a3 3 0 0 1 2.4 1.2l2.4 3.3H39.5A4.5 4.5 0 0 1 44 18v18.5a4.5 4.5 0 0 1-4.5 4.5h-31A4.5 4.5 0 0 1 4 36.5z" fill="#B0862F"></path>
+            </svg>
+            <div style="font-family:Spectral,Georgia,serif; font-size:24px; font-weight:600; color:#F6F3EC">Meus Autos</div>
+          </div>
+          <div style="width:42px; height:42px; border-radius:21px; background:#B0862F; color:#1C2E4A; font-size:16px; font-weight:700; display:flex; align-items:center; justify-content:center">RM</div>
+        </div>
+        <div style="padding:32px; display:flex; flex-direction:column; gap:24px; background:#F6F3EC">
+          <div style="display:flex; align-items:center; gap:14px; background:#FFFFFF; border:1px solid #E7E1D4; border-radius:14px; padding:18px 22px">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5A6472" stroke-width="2" style="flex:none"><circle cx="11" cy="11" r="7"></circle><path d="M16.5 16.5 21 21"></path></svg>
+            <div style="font-size:18px; color:#5A6472">Buscar por processo ou cliente</div>
+          </div>
+          <button style="border:none; width:100%; background:#1C2E4A; color:#FFFFFF; font-family:Inter; font-size:20px; font-weight:600; padding:22px; border-radius:14px; cursor:pointer; box-shadow:0 2px 6px rgba(28,46,74,.25)" style-hover="background:#17233B">+ Novo processo</button>
+          <div style="display:flex; align-items:center; justify-content:space-between; padding-top:4px">
+            <div style="font-family:Spectral,Georgia,serif; font-size:22px; font-weight:600">Meus processos</div>
+            <div style="font-size:16px; color:#5A6472">4 processos</div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:16px">
+            <sc-for list="{{ processos }}" as="p" hint-placeholder-count="4">
+              <div style="background:#FFFFFF; border:1px solid #E7E1D4; border-radius:14px; padding:{{ cardPad }}; display:flex; align-items:center; gap:20px; box-shadow:0 1px 2px rgba(23,35,59,.05)" style-hover="border-color:#B0862F">
+                <div style="width:52px; height:52px; border-radius:12px; background:#F6F3EC; border:1px solid #EBE4D5; display:flex; align-items:center; justify-content:center; flex:none">
+                  <svg width="26" height="26" viewBox="0 0 48 48"><path d="M4 13.5A4.5 4.5 0 0 1 8.5 9h9.8a3 3 0 0 1 2.4 1.2l2.4 3.3H39.5A4.5 4.5 0 0 1 44 18v18.5a4.5 4.5 0 0 1-4.5 4.5h-31A4.5 4.5 0 0 1 4 36.5z" fill="#B0862F"></path></svg>
+                </div>
+                <div style="flex:1; display:flex; flex-direction:column; gap:6px; min-width:0">
+                  <div style="font-family:Spectral,Georgia,serif; font-size:21px; font-weight:600; line-height:1.25">{{ p.nome }}</div>
+                  <div style="font-size:17px; color:#5A6472">{{ p.cliente }}</div>
+                  <div style="font-size:16px; color:#5A6472">{{ p.arquivos }} arquivos · atualizado em {{ p.data }}</div>
+                </div>
+                <div style="font-size:26px; color:#B0862F; flex:none">›</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+
+      <!-- B: app -->
+      <div style="background:#FFFFFF; border:1px solid #E4E7EC; border-radius:14px; overflow:hidden; box-shadow:0 6px 24px rgba(23,35,59,.07)">
+        <div style="background:#1C2E4A; padding:26px 32px; display:flex; align-items:center; justify-content:space-between">
+          <div style="display:flex; align-items:center; gap:12px">
+            <svg width="34" height="34" viewBox="0 0 48 48" style="display:block">
+              <rect x="2" y="2" width="44" height="44" rx="12" fill="#B0862F"></rect>
+              <path d="M11 20.5a3 3 0 0 1 3-3h5.6l2.2 2.6H34a3 3 0 0 1 3 3v9.4a3 3 0 0 1-3 3H14a3 3 0 0 1-3-3z" fill="#1C2E4A"></path>
+              <circle cx="20" cy="17" r="4.6" fill="#1C2E4A"></circle>
+              <circle cx="27.5" cy="16" r="6" fill="#1C2E4A"></circle>
+            </svg>
+            <div style="font-family:Inter; font-size:24px; font-weight:700; letter-spacing:-0.02em; color:#FFFFFF">Jus<span style="color:#B0862F">Drive</span></div>
+          </div>
+          <div style="width:42px; height:42px; border-radius:10px; background:#B0862F; color:#1C2E4A; font-size:16px; font-weight:700; display:flex; align-items:center; justify-content:center">RM</div>
+        </div>
+        <div style="padding:32px; display:flex; flex-direction:column; gap:24px; background:#F6F3EC">
+          <div style="display:flex; align-items:center; gap:14px; background:#FFFFFF; border:1px solid #E4E7EC; border-radius:8px; padding:18px 22px">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5A6472" stroke-width="2" style="flex:none"><circle cx="11" cy="11" r="7"></circle><path d="M16.5 16.5 21 21"></path></svg>
+            <div style="font-size:18px; color:#5A6472">Buscar por processo ou cliente</div>
+          </div>
+          <button style="border:none; width:100%; background:#1C2E4A; color:#FFFFFF; font-family:Inter; font-size:20px; font-weight:600; padding:22px; border-radius:8px; cursor:pointer; box-shadow:0 2px 6px rgba(28,46,74,.25)" style-hover="background:#17233B">+ Novo processo</button>
+          <div style="display:flex; align-items:center; justify-content:space-between; padding-top:4px">
+            <div style="font-family:Inter; font-size:20px; font-weight:700; letter-spacing:-0.01em">Meus processos</div>
+            <div style="font-size:16px; color:#5A6472">4 processos</div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:16px">
+            <sc-for list="{{ processos }}" as="p" hint-placeholder-count="4">
+              <div style="background:#FFFFFF; border:1px solid #E4E7EC; border-left:4px solid #1C2E4A; border-radius:8px; padding:{{ cardPad }}; display:flex; align-items:center; gap:20px; box-shadow:0 1px 2px rgba(23,35,59,.05)" style-hover="border-left-color:#B0862F">
+                <div style="flex:1; display:flex; flex-direction:column; gap:6px; min-width:0">
+                  <div style="font-family:Inter; font-size:20px; font-weight:600; line-height:1.3; letter-spacing:-0.01em">{{ p.nome }}</div>
+                  <div style="font-size:17px; color:#5A6472">{{ p.cliente }}</div>
+                  <div style="display:flex; align-items:center; gap:10px; margin-top:2px">
+                    <div style="font-size:15px; font-weight:600; color:#1C2E4A; background:#EEF1F6; border-radius:6px; padding:5px 10px">{{ p.arquivos }} arquivos</div>
+                    <div style="font-size:16px; color:#5A6472">atualizado em {{ p.data }}</div>
+                  </div>
+                </div>
+                <div style="font-size:26px; color:#B0862F; flex:none">›</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= 4 · LINK COMPARTILHADO ================= -->
+      <div style="grid-column:1/-1; display:flex; align-items:baseline; gap:16px; margin:80px 0 24px">
+        <div style="font-family:Spectral,Georgia,serif; font-size:15px; font-weight:600; color:#B0862F; letter-spacing:0.06em">04</div>
+        <div style="font-size:15px; font-weight:600; letter-spacing:0.14em; text-transform:uppercase">Página de link compartilhado</div>
+        <div style="flex:1; height:1px; background:#DED7C7"></div>
+      </div>
+
+      <!-- A: share -->
+      <div style="background:#FFFFFF; border:1px solid #E7E1D4; border-radius:20px; overflow:hidden; box-shadow:0 6px 24px rgba(23,35,59,.07)">
+        <div style="background:#FFFFFF; border-bottom:1px solid #EFE9DC; padding:24px 32px; display:flex; align-items:center; gap:12px">
+          <svg width="30" height="30" viewBox="0 0 48 48" style="display:block"><path d="M4 13.5A4.5 4.5 0 0 1 8.5 9h9.8a3 3 0 0 1 2.4 1.2l2.4 3.3H39.5A4.5 4.5 0 0 1 44 18v18.5a4.5 4.5 0 0 1-4.5 4.5h-31A4.5 4.5 0 0 1 4 36.5z" fill="#B0862F"></path></svg>
+          <div style="font-family:Spectral,Georgia,serif; font-size:22px; font-weight:600">Meus Autos</div>
+          <div style="margin-left:auto; font-size:15px; color:#5A6472">Somente leitura</div>
+        </div>
+        <div style="padding:36px 32px; background:#F6F3EC; display:flex; flex-direction:column; gap:28px">
+          <div style="display:flex; flex-direction:column; gap:8px">
+            <div style="font-size:15px; letter-spacing:0.16em; text-transform:uppercase; color:#B0862F; font-weight:600">Processo compartilhado</div>
+            <div style="font-family:Spectral,Georgia,serif; font-size:32px; font-weight:600; line-height:1.2">Ação Trabalhista — Silva x Transportes Ipê</div>
+            <div style="font-size:17px; color:#5A6472">Cliente: João Batista da Silva · 12 arquivos</div>
+          </div>
+
+          <div style="background:#FFFFFF; border:1px solid #E7E1D4; border-radius:14px; padding:28px; display:flex; align-items:center; gap:28px; flex-wrap:wrap">
+            <div style="border:1px solid #EFE9DC; border-radius:10px; padding:10px; background:#FFFFFF; flex:none">{{ qrA }}</div>
+            <div style="display:flex; flex-direction:column; gap:8px; min-width:0; flex:1; overflow-wrap:anywhere">
+              <div style="font-family:Spectral,Georgia,serif; font-size:22px; font-weight:600">Aponte a câmera do celular</div>
+              <div style="font-size:17px; color:#5A6472; line-height:1.5">Ou use o endereço<br><span style="font-family:ui-monospace,Menlo,monospace; font-size:15px; color:#1C2E4A">meusautos.com.br/p/4f2a</span></div>
+            </div>
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:16px">
+            <div style="font-family:Spectral,Georgia,serif; font-size:22px; font-weight:600">Arquivos</div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px">
+              <sc-for list="{{ arquivos }}" as="f" hint-placeholder-count="4">
+                <div style="background:#FFFFFF; border:1px solid #E7E1D4; border-radius:14px; overflow:hidden; box-shadow:0 1px 2px rgba(23,35,59,.05)">
+                  <sc-if value="{{ mostrarMiniaturas }}" hint-placeholder-val="{{ true }}">
+                    <div style="height:110px; background-color:#F6F3EC; background-image:repeating-linear-gradient(135deg,#EDE6D6 0 8px,#F6F3EC 8px 16px); display:flex; align-items:center; justify-content:center">
+                      <div style="font-family:ui-monospace,Menlo,monospace; font-size:12px; color:#5A6472; background:rgba(255,255,255,.75); padding:4px 8px; border-radius:4px">{{ f.tipo }}</div>
+                    </div>
+                  </sc-if>
+                  <div style="padding:16px; display:flex; flex-direction:column; gap:5px">
+                    <div style="font-size:17px; font-weight:600; line-height:1.35; min-width:0; overflow-wrap:anywhere">{{ f.nome }}</div>
+                    <div style="font-size:15px; color:#5A6472">{{ f.meta }}</div>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+
+          <button style="border:none; width:100%; background:#1C2E4A; color:#FFFFFF; font-family:Inter; font-size:20px; font-weight:600; padding:22px; border-radius:14px; cursor:pointer" style-hover="background:#17233B">Baixar todos os arquivos</button>
+        </div>
+      </div>
+
+      <!-- B: share -->
+      <div style="background:#FFFFFF; border:1px solid #E4E7EC; border-radius:14px; overflow:hidden; box-shadow:0 6px 24px rgba(23,35,59,.07)">
+        <div style="background:#FFFFFF; border-bottom:1px solid #EEF1F4; padding:24px 32px; display:flex; align-items:center; gap:12px">
+          <svg width="30" height="30" viewBox="0 0 48 48" style="display:block">
+            <rect x="2" y="2" width="44" height="44" rx="12" fill="#1C2E4A"></rect>
+            <path d="M11 20.5a3 3 0 0 1 3-3h5.6l2.2 2.6H34a3 3 0 0 1 3 3v9.4a3 3 0 0 1-3 3H14a3 3 0 0 1-3-3z" fill="#B0862F"></path>
+            <circle cx="20" cy="17" r="4.6" fill="#B0862F"></circle>
+            <circle cx="27.5" cy="16" r="6" fill="#B0862F"></circle>
+          </svg>
+          <div style="font-family:Inter; font-size:22px; font-weight:700; letter-spacing:-0.02em">Jus<span style="color:#B0862F">Drive</span></div>
+          <div style="margin-left:auto; font-size:15px; color:#5A6472">Somente leitura</div>
+        </div>
+        <div style="padding:36px 32px; background:#F6F3EC; display:flex; flex-direction:column; gap:28px">
+          <div style="display:flex; flex-direction:column; gap:8px">
+            <div style="font-size:15px; letter-spacing:0.16em; text-transform:uppercase; color:#B0862F; font-weight:600">Processo compartilhado</div>
+            <div style="font-family:Inter; font-size:30px; font-weight:700; letter-spacing:-0.025em; line-height:1.2">Ação Trabalhista — Silva x Transportes Ipê</div>
+            <div style="font-size:17px; color:#5A6472">Cliente: João Batista da Silva · 12 arquivos</div>
+          </div>
+
+          <div style="background:#1C2E4A; border-radius:10px; padding:28px; display:flex; align-items:center; gap:28px; flex-wrap:wrap">
+            <div style="border-radius:8px; padding:10px; background:#FFFFFF; flex:none">{{ qrB }}</div>
+            <div style="display:flex; flex-direction:column; gap:8px; min-width:0; flex:1; overflow-wrap:anywhere">
+              <div style="font-family:Inter; font-size:20px; font-weight:600; color:#FFFFFF">Aponte a câmera do celular</div>
+              <div style="font-size:17px; color:#C7CEDA; line-height:1.5">Ou use o endereço<br><span style="font-family:ui-monospace,Menlo,monospace; font-size:15px; color:#B0862F">jusdrive.com.br/p/4f2a</span></div>
+            </div>
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:16px">
+            <div style="font-family:Inter; font-size:20px; font-weight:700; letter-spacing:-0.01em">Arquivos</div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px">
+              <sc-for list="{{ arquivos }}" as="f" hint-placeholder-count="4">
+                <div style="background:#FFFFFF; border:1px solid #E4E7EC; border-radius:8px; overflow:hidden; box-shadow:0 1px 2px rgba(23,35,59,.05)">
+                  <sc-if value="{{ mostrarMiniaturas }}" hint-placeholder-val="{{ true }}">
+                    <div style="height:110px; background-color:#EEF1F6; background-image:repeating-linear-gradient(135deg,#E2E7EF 0 8px,#EEF1F6 8px 16px); display:flex; align-items:center; justify-content:center">
+                      <div style="font-family:ui-monospace,Menlo,monospace; font-size:12px; color:#5A6472; background:rgba(255,255,255,.8); padding:4px 8px; border-radius:4px">{{ f.tipo }}</div>
+                    </div>
+                  </sc-if>
+                  <div style="padding:16px; display:flex; flex-direction:column; gap:5px">
+                    <div style="font-size:17px; font-weight:600; line-height:1.35; min-width:0; overflow-wrap:anywhere">{{ f.nome }}</div>
+                    <div style="font-size:15px; color:#5A6472">{{ f.meta }}</div>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+
+          <button style="border:none; width:100%; background:#1C2E4A; color:#FFFFFF; font-family:Inter; font-size:20px; font-weight:600; padding:22px; border-radius:8px; cursor:pointer" style-hover="background:#17233B">Baixar todos os arquivos</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;densidade&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;confortável&quot;,&quot;compacto&quot;],&quot;default&quot;:&quot;confortável&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Interface&quot;},&quot;mostrarMiniaturas&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Interface&quot;},&quot;tamanhoQr&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;min&quot;:110,&quot;max&quot;:220,&quot;step&quot;:10,&quot;default&quot;:150,&quot;unit&quot;:&quot;px&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Link compartilhado&quot;}}">
+class Component extends DCLogic {
+  qr(seed, size, color) {
+    const n = 25, cells = [];
+    let s = seed >>> 0;
+    const rnd = () => { s = (s * 1664525 + 1013904223) >>> 0; return s / 4294967296; };
+    const inBox = (r, c, r0, c0) => r >= r0 && r < r0 + 7 && c >= c0 && c < c0 + 7;
+    for (let r = 0; r < n; r++) for (let c = 0; c < n; c++) {
+      const finder = inBox(r, c, 0, 0) || inBox(r, c, 0, n - 7) || inBox(r, c, n - 7, 0);
+      let on;
+      if (finder) {
+        const r0 = r < 7 ? 0 : n - 7, c0 = c < 7 ? 0 : n - 7;
+        on = Math.max(Math.abs(r - r0 - 3), Math.abs(c - c0 - 3)) !== 2;
+      } else if ((r < 8 && c < 8) || (r < 8 && c > n - 9) || (r > n - 9 && c < 8)) {
+        on = false;
+      } else on = rnd() > 0.5;
+      if (on) cells.push(React.createElement('rect', { key: r + '-' + c, x: c, y: r, width: 1, height: 1, fill: color }));
+    }
+    return React.createElement('svg', { viewBox: '0 0 ' + n + ' ' + n, width: size, height: size, shapeRendering: 'crispEdges', style: { display: 'block' } }, cells);
+  }
+  renderVals() {
+    const size = this.props.tamanhoQr ?? 150;
+    return {
+      processos: [
+        { nome: 'Ação Trabalhista — Silva x Transportes Ipê', cliente: 'João Batista da Silva', arquivos: 12, data: '14 de agosto' },
+        { nome: 'Inventário — Espólio de Maria Ferreira', cliente: 'Ana Ferreira Lopes', arquivos: 34, data: '9 de agosto' },
+        { nome: 'Divórcio consensual — Souza', cliente: 'Carlos e Regina Souza', arquivos: 7, data: '2 de agosto' },
+        { nome: 'Cobrança — Condomínio Vila Rica', cliente: 'Cond. Vila Rica', arquivos: 19, data: '28 de julho' }
+      ],
+      arquivos: [
+        { nome: 'Contrato assinado.pdf', meta: 'PDF · 1,2 MB', tipo: 'documento' },
+        { nome: 'Foto do local.jpg', meta: 'Imagem · 3,4 MB', tipo: 'foto' },
+        { nome: 'Print da conversa.png', meta: 'Imagem · 820 KB', tipo: 'print' },
+        { nome: 'Depoimento.mp4', meta: 'Vídeo · 48 MB', tipo: 'vídeo' }
+      ],
+      cardPad: (this.props.densidade ?? 'confortável') === 'compacto' ? '16px 20px' : '22px 24px',
+      mostrarMiniaturas: this.props.mostrarMiniaturas ?? true,
+      qrA: this.qr(20260816, size, '#17233B'),
+      qrB: this.qr(20260816, size, '#1C2E4A')
+    };
+  }
+}
+</script>
+</body>
+</html>

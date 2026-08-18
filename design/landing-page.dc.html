@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing:border-box; }
+  body { margin:0; background:#F6F3EC; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+  a { color:#1C2E4A; text-decoration:none; transition:color .2s ease, background-color .2s ease, border-color .2s ease, box-shadow .25s ease, transform .25s ease; }
+  a:hover { color:#B0862F; }
+  @keyframes jdFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+  @keyframes jdRule { from{transform:scaleX(0)} to{transform:scaleX(1)} }
+  @keyframes jdPulse { 0%{box-shadow:0 0 0 0 rgba(176,134,47,.45)} 70%{box-shadow:0 0 0 14px rgba(176,134,47,0)} 100%{box-shadow:0 0 0 0 rgba(176,134,47,0)} }
+  @keyframes jdCaret { 0%,45%{opacity:1} 55%,100%{opacity:0} }
+  @keyframes jdCardIn { from{opacity:0; transform:translateY(8px)} to{opacity:1; transform:none} }
+  html[data-jd-anim] [data-reveal] { opacity:0; transform:translateY(22px); }
+  html[data-jd-anim] [data-reveal][data-shown] { opacity:1; transform:none; transition:opacity .7s cubic-bezier(.22,.61,.36,1), transform .7s cubic-bezier(.22,.61,.36,1); }
+  html[data-jd-anim] [data-reveal="1"][data-shown] { transition-delay:.09s }
+  html[data-jd-anim] [data-reveal="2"][data-shown] { transition-delay:.18s }
+  html[data-jd-anim] [data-reveal="3"][data-shown] { transition-delay:.27s }
+
+  /* header / mobile nav */
+  .jd-header-inner { max-width:1120px; margin:0 auto; padding:14px 20px; display:flex; flex-wrap:wrap; align-items:center; gap:12px; }
+  .jd-logo { order:0; display:flex; align-items:center; gap:10px; }
+  .jd-hamburger { order:1; margin-left:auto; display:flex; align-items:center; justify-content:center; width:38px; height:38px; border-radius:8px; border:1px solid #E4E7EC; background:#FFFFFF; cursor:pointer; }
+  .jd-header-cta { order:2; }
+  .jd-menu-toggle { position:absolute; opacity:0; width:1px; height:1px; overflow:hidden; }
+  .jd-nav { order:3; display:none; flex-direction:column; gap:2px; width:100%; padding-top:10px; margin-top:2px; border-top:1px solid #E4E7EC; }
+  .jd-nav a { padding:10px 4px; font-size:17px; }
+  .jd-menu-toggle:checked ~ .jd-nav { display:flex; }
+  @media (min-width:900px) {
+    .jd-header-inner { padding:20px 40px; flex-wrap:nowrap; gap:32px; }
+    .jd-hamburger { display:none; }
+    .jd-nav { display:flex !important; flex-direction:row; width:auto; gap:28px; order:1; margin-left:auto; padding-top:0; margin-top:0; border-top:none; }
+    .jd-nav a { padding:0; }
+    .jd-header-cta { order:2; }
+  }
+
+  /* shared container / vertical rhythm */
+  .jd-container { max-width:1120px; margin:0 auto; padding-left:20px; padding-right:20px; }
+  .jd-section-pad { padding-top:56px; padding-bottom:56px; }
+  @media (min-width:900px) {
+    .jd-container { padding-left:40px; padding-right:40px; }
+    .jd-section-pad { padding-top:88px; padding-bottom:88px; }
+  }
+
+  /* hero */
+  .jd-hero { max-width:1120px; margin:0 auto; padding:48px 20px 56px; display:flex; flex-direction:column; gap:40px; }
+  @media (min-width:900px) { .jd-hero { padding:88px 40px 96px; display:grid; grid-template-columns:1.05fr 0.95fr; gap:64px; align-items:center; } }
+
+  /* 3-up grids (problema / como funciona) */
+  .jd-grid-3 { display:grid; grid-template-columns:1fr; }
+  @media (min-width:640px) { .jd-grid-3 { grid-template-columns:1fr 1fr; } }
+  @media (min-width:900px) { .jd-grid-3 { grid-template-columns:repeat(3,1fr); } }
+
+  /* compartilhar */
+  .jd-compartilhar-grid { display:grid; grid-template-columns:1fr; gap:40px; align-items:start; }
+  @media (min-width:900px) { .jd-compartilhar-grid { grid-template-columns:1fr 1fr; gap:64px; align-items:center; } }
+  .jd-share-card { padding:24px; }
+  @media (min-width:640px) { .jd-share-card { padding:36px; } }
+
+  /* planos */
+  .jd-planos-grid { display:grid; grid-template-columns:1fr; align-items:stretch; }
+  @media (min-width:640px) { .jd-planos-grid { grid-template-columns:1fr 1fr; } }
+  @media (min-width:1024px) { .jd-planos-grid { grid-template-columns:repeat(4,1fr); } }
+</style>
+</helmet>
+
+<div style="background:#F6F3EC; color:#17233B; font-family:'IBM Plex Sans',system-ui,sans-serif">
+
+  <!-- NAV -->
+  <header style="position:sticky; top:0; z-index:20; background:rgba(246,243,236,.92); backdrop-filter:blur(8px); border-bottom:1px solid #E4E7EC">
+    <div class="jd-header-inner">
+      <div class="jd-logo">
+        <svg width="34" height="34" viewBox="0 0 48 48" style="display:block; flex:none">
+          <rect x="2" y="2" width="44" height="44" rx="12" fill="#1C2E4A"></rect>
+          <circle cx="20" cy="17" r="4.6" fill="#B0862F"></circle>
+          <circle cx="27.5" cy="16" r="6" fill="#B0862F"></circle>
+          <path d="M11 20.5a3 3 0 0 1 3-3h5.6l2.2 2.6H34a3 3 0 0 1 3 3v9.4a3 3 0 0 1-3 3H14a3 3 0 0 1-3-3z" fill="#B0862F"></path>
+        </svg>
+        <div style="font-size:clamp(20px,5vw,24px); font-weight:700; letter-spacing:-0.02em">Jus<span style="color:#B0862F">Drive</span></div>
+      </div>
+      <input type="checkbox" id="jd-menu-toggle" class="jd-menu-toggle">
+      <a href="https://app.jusdrive.com.br" class="jd-header-cta" style="background:#1C2E4A; color:#FFFFFF; font-size:16px; font-weight:600; padding:11px 20px; border-radius:8px" style-hover="background:#17233B; color:#FFFFFF">Entrar</a>
+      <label for="jd-menu-toggle" class="jd-hamburger" aria-label="Abrir menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#17233B" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </label>
+      <nav class="jd-nav" style="font-size:17px; color:#5A6472">
+        <a href="#como-funciona" style="color:#5A6472" style-hover="color:#B0862F">Como funciona</a>
+        <a href="#compartilhar" style="color:#5A6472" style-hover="color:#B0862F">Compartilhar</a>
+        <a href="#planos" style="color:#5A6472" style-hover="color:#B0862F">Planos</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="jd-hero">
+    <div data-reveal="0" style="display:flex; flex-direction:column; gap:24px">
+      <div style="font-size:14px; font-weight:600; letter-spacing:0.18em; color:#B0862F">ORGANIZE SEUS PROCESSOS</div>
+      <h1 style="font-family:'Source Serif 4',Georgia,serif; font-weight:600; font-size:clamp(32px,7vw,58px); line-height:1.12; margin:0; letter-spacing:-0.018em; font-variation-settings:'opsz' 48; text-wrap:balance">Todos os arquivos de cada processo, num só lugar.</h1>
+      <p style="font-size:clamp(17px,2.4vw,21px); line-height:1.6; color:#5A6472; margin:0; max-width:520px; text-wrap:pretty">Guarde PDFs, fotos, prints e vídeos dentro do processo a que pertencem. Quando precisar mostrar ao cliente, envie um link ou o QR code. Sem pastas confusas, sem cadastro para quem recebe.</p>
+      <div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap">
+        <a href="https://app.jusdrive.com.br" style="background:#1C2E4A; color:#FFFFFF; font-size:clamp(17px,4vw,20px); font-weight:600; padding:clamp(16px,5vw,22px) clamp(26px,9vw,40px); border-radius:8px; box-shadow:0 2px 8px rgba(28,46,74,.25)" style-hover="background:#17233B; color:#FFFFFF">Criar minha conta grátis</a>
+        <div style="font-size:16px; color:#5A6472; line-height:1.5">Leva 2 minutos. Sem cartão.<br>Planos a partir de R$ 59,90/mês.</div>
+      </div>
+      <div style="display:flex; gap:24px; padding-top:12px; border-top:1px solid #E4E7EC; font-size:16px; color:#5A6472; flex-wrap:wrap">
+        <div>Feito para advogado autônomo</div>
+        <div>Funciona no celular e no computador</div>
+      </div>
+    </div>
+
+    <!-- mockup do app -->
+    <div data-reveal="2" style="background:#FFFFFF; border:1px solid #E4E7EC; border-radius:14px; overflow:hidden; box-shadow:0 18px 48px rgba(23,35,59,.12); animation:jdFloat 7s ease-in-out infinite">
+      <div style="background:#1C2E4A; padding:18px 22px; display:flex; align-items:center; gap:10px">
+        <svg width="26" height="26" viewBox="0 0 48 48" style="display:block; flex:none">
+          <rect x="2" y="2" width="44" height="44" rx="12" fill="#B0862F"></rect>
+          <circle cx="20" cy="17" r="4.6" fill="#1C2E4A"></circle>
+          <circle cx="27.5" cy="16" r="6" fill="#1C2E4A"></circle>
+          <path d="M11 20.5a3 3 0 0 1 3-3h5.6l2.2 2.6H34a3 3 0 0 1 3 3v9.4a3 3 0 0 1-3 3H14a3 3 0 0 1-3-3z" fill="#1C2E4A"></path>
+        </svg>
+        <div style="font-size:18px; font-weight:700; letter-spacing:-0.02em; color:#FFFFFF">Jus<span style="color:#B0862F">Drive</span></div>
+        <div style="margin-left:auto; width:30px; height:30px; border-radius:8px; background:#B0862F; color:#1C2E4A; font-size:12px; font-weight:700; display:flex; align-items:center; justify-content:center; flex:none">RM</div>
+      </div>
+      <div style="background:#F6F3EC; padding:20px; display:flex; flex-direction:column; gap:14px">
+        <div style="background:#FFFFFF; border:1px solid #E4E7EC; border-radius:8px; padding:14px 16px; font-size:16px; display:flex; align-items:center; gap:8px; box-shadow:{{ buscaSombra }}">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#5A6472" stroke-width="2" style="flex:none"><circle cx="11" cy="11" r="7"></circle><path d="M16.5 16.5 21 21"></path></svg>
+          <sc-if value="{{ temBusca }}" hint-placeholder-val="{{ false }}">
+            <div style="color:#17233B; font-weight:500">{{ busca }}</div>
+          </sc-if>
+          <sc-if value="{{ semBusca }}" hint-placeholder-val="{{ true }}">
+            <div style="color:#5A6472">Buscar por processo ou cliente</div>
+          </sc-if>
+          <div style="width:1.5px; height:18px; background:#1C2E4A; animation:jdCaret 1s step-end infinite"></div>
+        </div>
+        <div style="background:#1C2E4A; color:#FFFFFF; border-radius:8px; padding:16px; font-size:17px; font-weight:600; text-align:center">+ Novo processo</div>
+        <sc-for list="{{ processosFiltrados }}" as="p" hint-placeholder-count="3">
+          <div style="background:#FFFFFF; border:1px solid #E4E7EC; border-left:4px solid {{ p.barra }}; border-radius:8px; padding:16px 18px; display:flex; flex-direction:column; gap:5px; animation:jdCardIn .35s ease both">
+            <div style="font-size:17px; font-weight:600; line-height:1.3">{{ p.nome }}</div>
+            <div style="font-size:15px; color:#5A6472">{{ p.cliente }}</div>
+            <div style="display:flex; align-items:center; gap:8px; margin-top:2px; flex-wrap:wrap">
+              <div style="font-size:13px; font-weight:600; color:#1C2E4A; background:#EEF1F6; border-radius:6px; padding:4px 8px">{{ p.arquivos }} arquivos</div>
+              <div style="font-size:14px; color:#5A6472">atualizado em {{ p.data }}</div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEMA -->
+  <section style="background:#FFFFFF; border-top:1px solid #E4E7EC; border-bottom:1px solid #E4E7EC">
+    <div class="jd-container jd-section-pad" style="display:flex; flex-direction:column; gap:40px">
+      <h2 style="font-family:'Source Serif 4',Georgia,serif; font-weight:600; font-size:clamp(27px,5vw,38px); margin:0; max-width:640px; line-height:1.2">Onde estão os documentos daquele processo?</h2>
+      <div class="jd-grid-3" style="gap:32px">
+        <div data-reveal="1" style="display:flex; flex-direction:column; gap:12px">
+          <div style="font-family:'Source Serif 4',Georgia,serif; font-size:22px; color:#B0862F">Hoje</div>
+          <div style="font-size:17px; line-height:1.6; color:#5A6472">Prints no WhatsApp, PDFs no e-mail, fotos na galeria do celular. Cada processo espalhado em quatro lugares.</div>
+        </div>
+        <div data-reveal="1" style="display:flex; flex-direction:column; gap:12px">
+          <div style="font-family:'Source Serif 4',Georgia,serif; font-size:22px; color:#B0862F">Com o JusDrive</div>
+          <div style="font-size:17px; line-height:1.6; color:#5A6472">Um processo, uma pasta. Tudo que chega vai para dentro dele, no celular ou no computador.</div>
+        </div>
+        <div data-reveal="1" style="display:flex; flex-direction:column; gap:12px">
+          <div style="font-family:'Source Serif 4',Georgia,serif; font-size:22px; color:#B0862F">Na hora de mostrar</div>
+          <div style="font-size:17px; line-height:1.6; color:#5A6472">Um link, ou um QR code para o cliente apontar a câmera. Ele vê os arquivos e não altera nada.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMO FUNCIONA -->
+  <section id="como-funciona" class="jd-container jd-section-pad" style="display:flex; flex-direction:column; gap:40px">
+    <div style="display:flex; flex-direction:column; gap:14px; max-width:620px">
+      <div style="font-size:14px; font-weight:600; letter-spacing:0.18em; color:#B0862F">COMO FUNCIONA</div>
+      <h2 style="font-family:'Source Serif 4',Georgia,serif; font-weight:600; font-size:clamp(27px,5vw,38px); margin:0; line-height:1.2">Três passos, e pronto.</h2>
+    </div>
+    <div class="jd-grid-3" style="gap:24px">
+      <sc-for list="{{ passos }}" as="s" hint-placeholder-count="3">
+        <div data-reveal="{{ s.n }}" style="background:#FFFFFF; border:1px solid #E4E7EC; border-radius:14px; padding:28px; display:flex; flex-direction:column; gap:14px; box-shadow:0 1px 2px rgba(23,35,59,.05); transition:transform .3s ease, box-shadow .3s ease, border-color .3s ease" style-hover="transform:translateY(-6px); box-shadow:0 14px 32px rgba(23,35,59,.10); border-color:#B0862F">
+          <div style="width:44px; height:44px; border-radius:10px; background:#1C2E4A; color:#B0862F; font-family:'Source Serif 4',Georgia,serif; font-size:22px; font-weight:600; display:flex; align-items:center; justify-content:center">{{ s.n }}</div>
+          <div style="font-size:20px; font-weight:600; letter-spacing:-0.01em">{{ s.titulo }}</div>
+          <div style="font-size:17px; line-height:1.6; color:#5A6472">{{ s.texto }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- COMPARTILHAR -->
+  <section id="compartilhar" style="background:#1C2E4A; color:#FFFFFF">
+    <div class="jd-container jd-section-pad jd-compartilhar-grid">
+      <div data-reveal="0" style="display:flex; flex-direction:column; gap:24px">
+        <div style="font-size:14px; font-weight:600; letter-spacing:0.18em; color:#B0862F">LINK E QR CODE</div>
+        <h2 style="font-family:'Source Serif 4',Georgia,serif; font-weight:600; font-size:clamp(28px,5.2vw,40px); margin:0; line-height:1.15; color:#FFFFFF">O cliente abre e vê. Nada para instalar.</h2>
+        <p style="font-size:18px; line-height:1.65; color:#C7CEDA; margin:0; text-wrap:pretty">Cada processo tem um link próprio, somente leitura. Mande pelo WhatsApp ou mostre o QR code na sua tela para o cliente apontar a câmera do celular. Ele não precisa criar conta nem saber usar nada.</p>
+        <div style="display:flex; flex-direction:column; gap:12px; font-size:17px; color:#FFFFFF">
+          <div style="display:flex; gap:12px; align-items:baseline"><span style="color:#B0862F">—</span><span>Somente leitura: ninguém apaga ou altera seus arquivos.</span></div>
+          <div style="display:flex; gap:12px; align-items:baseline"><span style="color:#B0862F">—</span><span>Você desliga o link quando quiser.</span></div>
+          <div style="display:flex; gap:12px; align-items:baseline"><span style="color:#B0862F">—</span><span>Funciona com PDF, foto, print e vídeo.</span></div>
+        </div>
+      </div>
+      <div data-reveal="2" class="jd-share-card" style="background:#FFFFFF; border-radius:14px; display:flex; flex-direction:column; gap:24px; box-shadow:0 18px 48px rgba(0,0,0,.22)">
+        <div style="display:flex; align-items:center; gap:10px; border-bottom:1px solid #EEF1F4; padding-bottom:18px; flex-wrap:wrap">
+          <svg width="26" height="26" viewBox="0 0 48 48" style="display:block; flex:none">
+            <rect x="2" y="2" width="44" height="44" rx="12" fill="#1C2E4A"></rect>
+            <circle cx="20" cy="17" r="4.6" fill="#B0862F"></circle>
+            <circle cx="27.5" cy="16" r="6" fill="#B0862F"></circle>
+            <path d="M11 20.5a3 3 0 0 1 3-3h5.6l2.2 2.6H34a3 3 0 0 1 3 3v9.4a3 3 0 0 1-3 3H14a3 3 0 0 1-3-3z" fill="#B0862F"></path>
+          </svg>
+          <div style="font-size:18px; font-weight:700; letter-spacing:-0.02em; color:#17233B">Jus<span style="color:#B0862F">Drive</span></div>
+          <div style="margin-left:auto; font-size:14px; color:#5A6472">Somente leitura</div>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:6px">
+          <div style="font-size:13px; font-weight:600; letter-spacing:0.16em; color:#B0862F">PROCESSO COMPARTILHADO</div>
+          <div style="font-size:21px; font-weight:700; letter-spacing:-0.02em; color:#17233B; line-height:1.25">Ação Trabalhista — Silva x Transportes Ipê</div>
+          <div style="font-size:16px; color:#5A6472">12 arquivos</div>
+        </div>
+        <div style="display:flex; align-items:center; gap:20px; background:#F6F3EC; border-radius:10px; padding:18px; flex-wrap:wrap">
+          <div style="background:#FFFFFF; padding:8px; border-radius:8px; flex:none; animation:jdPulse 3.2s ease-out infinite">{{ qr }}</div>
+          <div style="display:flex; flex-direction:column; gap:6px; min-width:0; flex:1">
+            <div style="font-size:17px; font-weight:600; color:#17233B">Aponte a câmera do celular</div>
+            <div style="font-family:ui-monospace,Menlo,monospace; font-size:14px; color:#B0862F; overflow-wrap:anywhere">jusdrive.com.br/p/4f2a</div>
+          </div>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px">
+          <sc-for list="{{ arquivos }}" as="f" hint-placeholder-count="4">
+            <div style="border:1px solid #E4E7EC; border-radius:8px; padding:12px 14px; display:flex; flex-direction:column; gap:4px">
+              <div style="font-size:15px; font-weight:600; color:#17233B; overflow-wrap:anywhere">{{ f.nome }}</div>
+              <div style="font-size:14px; color:#5A6472">{{ f.meta }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PLANOS -->
+  <section id="planos" class="jd-container jd-section-pad" style="display:flex; flex-direction:column; gap:36px">
+    <div style="display:flex; flex-direction:column; gap:14px; max-width:620px">
+      <div style="font-size:14px; font-weight:600; letter-spacing:0.18em; color:#B0862F">PLANOS</div>
+      <h2 style="font-family:'Source Serif 4',Georgia,serif; font-weight:600; font-size:clamp(27px,5vw,38px); margin:0; line-height:1.2; letter-spacing:-0.012em">Preço simples, como o produto.</h2>
+      <p style="font-size:18px; color:#5A6472; margin:0; line-height:1.6">Comece grátis. Planos pagos a partir de R$ 59,90 por mês.<br>Só o Premium tem os recursos de IA.</p>
+    </div>
+    <div class="jd-planos-grid" style="gap:20px">
+      <sc-for list="{{ planos }}" as="pl" hint-placeholder-count="4">
+        <div data-reveal="{{ pl.i }}" style="background:#FFFFFF; border:{{ pl.borda }}; border-radius:14px; padding:26px 22px; display:flex; flex-direction:column; gap:14px; box-shadow:{{ pl.sombra }}; transition:transform .3s ease, box-shadow .3s ease" style-hover="transform:translateY(-6px); box-shadow:0 16px 36px rgba(23,35,59,.13)">
+          <div style="display:flex; align-items:center; gap:8px; min-height:26px; flex-wrap:wrap">
+            <div style="font-size:19px; font-weight:600">{{ pl.nome }}</div>
+            <sc-if value="{{ pl.temSelo }}" hint-placeholder-val="{{ false }}">
+              <div style="font-size:12px; font-weight:600; letter-spacing:0.1em; color:{{ pl.seloTexto }}; background:{{ pl.seloFundo }}; border-radius:6px; padding:4px 8px">{{ pl.selo }}</div>
+            </sc-if>
+          </div>
+          <div style="display:flex; align-items:baseline; gap:6px">
+            <span style="font-family:'Source Serif 4',Georgia,serif; font-size:clamp(27px,7vw,38px); font-weight:600; letter-spacing:-0.01em">{{ pl.preco }}</span>
+            <span style="font-size:16px; color:#5A6472">{{ pl.periodo }}</span>
+          </div>
+          <div style="height:1px; background:#EEF1F4"></div>
+          <div style="display:flex; flex-direction:column; gap:8px; font-size:16px; color:#17233B">
+            <sc-for list="{{ pl.itens }}" as="it" hint-placeholder-count="3">
+              <div style="display:flex; gap:8px; align-items:baseline"><span style="color:#B0862F">—</span><span>{{ it }}</span></div>
+            </sc-for>
+          </div>
+          <a href="https://app.jusdrive.com.br" style="margin-top:auto; text-align:center; background:{{ pl.btnFundo }}; color:{{ pl.btnTexto }}; border:1.5px solid #1C2E4A; font-size:17px; font-weight:600; padding:16px; border-radius:8px" style-hover="background:#17233B; color:#FFFFFF; border-color:#17233B">{{ pl.cta }}</a>
+        </div>
+      </sc-for>
+    </div>
+    <div style="font-size:15px; color:#5A6472">Todos os planos incluem link com QR code e acesso pelo celular. Sem contrato de fidelidade, cancele quando quiser.</div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section style="background:#FFFFFF; border-top:1px solid #E4E7EC">
+    <div class="jd-container jd-section-pad" style="display:flex; flex-direction:column; align-items:center; gap:24px; text-align:center">
+      <h2 data-reveal="0" style="font-family:'Source Serif 4',Georgia,serif; font-weight:600; font-size:clamp(30px,6.5vw,44px); margin:0; line-height:1.15; max-width:680px; text-wrap:balance">Organize o primeiro processo hoje.</h2>
+      <p style="font-size:18px; color:#5A6472; margin:0; max-width:560px; line-height:1.6">Crie sua conta, envie os arquivos e mande o link para o cliente. Sem treinamento, sem manual.</p>
+      <a href="https://app.jusdrive.com.br" style="background:#1C2E4A; color:#FFFFFF; font-size:clamp(17px,4vw,20px); font-weight:600; padding:clamp(16px,5vw,22px) clamp(28px,9vw,44px); border-radius:8px; box-shadow:0 2px 8px rgba(28,46,74,.25)" style-hover="background:#17233B; color:#FFFFFF">Criar minha conta grátis</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="background:#17233B; color:#C7CEDA">
+    <div class="jd-container" style="padding-top:40px; padding-bottom:40px; display:flex; align-items:center; gap:28px; flex-wrap:wrap">
+      <div style="display:flex; align-items:center; gap:10px">
+        <svg width="30" height="30" viewBox="0 0 48 48" style="display:block; flex:none">
+          <rect x="2" y="2" width="44" height="44" rx="12" fill="#B0862F"></rect>
+          <circle cx="20" cy="17" r="4.6" fill="#17233B"></circle>
+          <circle cx="27.5" cy="16" r="6" fill="#17233B"></circle>
+          <path d="M11 20.5a3 3 0 0 1 3-3h5.6l2.2 2.6H34a3 3 0 0 1 3 3v9.4a3 3 0 0 1-3 3H14a3 3 0 0 1-3-3z" fill="#17233B"></path>
+        </svg>
+        <div style="font-size:20px; font-weight:700; letter-spacing:-0.02em; color:#FFFFFF">Jus<span style="color:#B0862F">Drive</span></div>
+      </div>
+      <div style="display:flex; gap:22px; font-size:15px; margin-left:auto; flex-wrap:wrap">
+        <a href="https://app.jusdrive.com.br" style="color:#C7CEDA" style-hover="color:#B0862F">Entrar no app</a>
+        <a href="#planos" style="color:#C7CEDA" style-hover="color:#B0862F">Planos</a>
+        <a href="mailto:contato@jusdrive.com.br" style="color:#C7CEDA" style-hover="color:#B0862F">contato@jusdrive.com.br</a>
+      </div>
+      <div style="width:100%; border-top:1px solid #2A3853; padding-top:20px; font-size:14px; color:#8794A8">© 2026 JusDrive. Todos os direitos reservados.</div>
+    </div>
+  </footer>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1200}}">
+class Component extends DCLogic {
+  qr(seed, size, color) {
+    const n = 25, cells = [];
+    let s = seed >>> 0;
+    const rnd = () => { s = (s * 1664525 + 1013904223) >>> 0; return s / 4294967296; };
+    const inBox = (r, c, r0, c0) => r >= r0 && r < r0 + 7 && c >= c0 && c < c0 + 7;
+    for (let r = 0; r < n; r++) for (let c = 0; c < n; c++) {
+      const finder = inBox(r, c, 0, 0) || inBox(r, c, 0, n - 7) || inBox(r, c, n - 7, 0);
+      let on;
+      if (finder) {
+        const r0 = r < 7 ? 0 : n - 7, c0 = c < 7 ? 0 : n - 7;
+        on = Math.max(Math.abs(r - r0 - 3), Math.abs(c - c0 - 3)) !== 2;
+      } else if ((r < 8 && c < 8) || (r < 8 && c > n - 9) || (r > n - 9 && c < 8)) on = false;
+      else on = rnd() > 0.5;
+      if (on) cells.push(React.createElement('rect', { key: r + '-' + c, x: c, y: r, width: 1, height: 1, fill: color }));
+    }
+    return React.createElement('svg', { viewBox: '0 0 ' + n + ' ' + n, width: size, height: size, shapeRendering: 'crispEdges', style: { display: 'block' } }, cells);
+  }
+  state = { q: '' };
+  componentDidMount() { this._reveal(); this._typeLoop(); }
+  _typeLoop() {
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const alvo = 'Silva';
+    let i = 0, apagando = false;
+    const tick = () => {
+      if (this._morto) return;
+      if (!apagando) {
+        i++;
+        this.setState({ q: alvo.slice(0, i) });
+        if (i >= alvo.length) { apagando = true; this._t = setTimeout(tick, 2600); return; }
+        this._t = setTimeout(tick, 190);
+      } else {
+        i--;
+        this.setState({ q: alvo.slice(0, Math.max(i, 0)) });
+        if (i <= 0) { apagando = false; this._t = setTimeout(tick, 1600); return; }
+        this._t = setTimeout(tick, 80);
+      }
+    };
+    this._t = setTimeout(tick, 1800);
+  }
+  componentDidUpdate() { this._reveal(); }
+  _reveal() {
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    document.documentElement.setAttribute('data-jd-anim', '');
+    if (!this._io) {
+      this._io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (!e.isIntersecting) return;
+          e.target.setAttribute('data-shown', '1');
+          this._io.unobserve(e.target);
+        });
+      }, { rootMargin: '0px 0px -10% 0px', threshold: 0.08 });
+    }
+    document.querySelectorAll('[data-reveal]:not([data-shown])').forEach((el) => {
+      const r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight * 0.92 && r.bottom > 0) { el.setAttribute('data-shown', '1'); return; }
+      this._io.observe(el);
+    });
+  }
+  componentWillUnmount() { this._morto = true; clearTimeout(this._t); if (this._io) this._io.disconnect(); }
+  renderVals() {
+    const q = (this.state.q || '').toLowerCase();
+    const todos = [
+      { nome: 'Ação Trabalhista — Silva x Transportes Ipê', cliente: 'João Batista da Silva', arquivos: 12, data: '14 de agosto' },
+      { nome: 'Inventário — Espólio de Maria Ferreira', cliente: 'Ana Ferreira Lopes', arquivos: 34, data: '9 de agosto' },
+      { nome: 'Divórcio consensual — Souza', cliente: 'Carlos e Regina Souza', arquivos: 7, data: '2 de agosto' }
+    ];
+    const filtrados = q
+      ? todos.filter((p) => (p.nome + ' ' + p.cliente).toLowerCase().includes(q))
+      : todos;
+    return {
+      busca: this.state.q,
+      temBusca: !!this.state.q,
+      semBusca: !this.state.q,
+      buscaSombra: this.state.q ? '0 0 0 3px rgba(28,46,74,.12)' : 'none',
+      processosFiltrados: filtrados.map((p) => Object.assign({}, p, { barra: q ? '#B0862F' : '#1C2E4A' })),
+      qr: this.qr(20260817, 116, '#17233B'),
+      planos: [
+        { i: 0, nome: 'Gratuito', preco: 'R$ 0', periodo: '/mês', itens: ['1 processo', '2 arquivos e vídeos', '1 modelo de peça', 'Sem IA'], cta: 'Criar conta', temSelo: false, selo: '', seloFundo: '#EEF1F6', seloTexto: '#1C2E4A', borda: '1px solid #E4E7EC', sombra: '0 1px 2px rgba(23,35,59,.05)', btnFundo: 'transparent', btnTexto: '#1C2E4A' },
+        { i: 1, nome: 'Profissional', preco: 'R$ 59,90', periodo: '/mês', itens: ['9 processos', '30 arquivos e vídeos', '6 modelos de peça', 'Sem IA'], cta: 'Assinar', temSelo: false, selo: '', seloFundo: '#EEF1F6', seloTexto: '#1C2E4A', borda: '1px solid #E4E7EC', sombra: '0 1px 2px rgba(23,35,59,.05)', btnFundo: 'transparent', btnTexto: '#1C2E4A' },
+        { i: 2, nome: 'Ilimitado', preco: 'R$ 99,90', periodo: '/mês', itens: ['Processos ilimitados', 'Arquivos e vídeos ilimitados', 'Modelos ilimitados', 'Sem IA'], cta: 'Assinar', temSelo: true, selo: 'MAIS POPULAR', seloFundo: '#EEF1F6', seloTexto: '#1C2E4A', borda: '1.5px solid #B0862F', sombra: '0 8px 28px rgba(23,35,59,.10)', btnFundo: '#1C2E4A', btnTexto: '#FFFFFF' },
+        { i: 3, nome: 'Premium', preco: 'R$ 149,90', periodo: '/mês', itens: ['Tudo do Ilimitado', 'Gerar petições com IA', 'Resumir processos com IA', 'Recursos ilimitados'], cta: 'Assinar', temSelo: true, selo: 'COM IA', seloFundo: '#1C2E4A', seloTexto: '#B0862F', borda: '1px solid #1C2E4A', sombra: '0 4px 18px rgba(23,35,59,.08)', btnFundo: 'transparent', btnTexto: '#1C2E4A' }
+      ],
+      passos: [
+        { n: '1', titulo: 'Crie o processo', texto: 'Dê o nome do processo e o nome do cliente. É o único cadastro que existe.' },
+        { n: '2', titulo: 'Junte os arquivos', texto: 'Arraste PDFs ou envie fotos e prints direto do celular. Tudo fica dentro do processo.' },
+        { n: '3', titulo: 'Compartilhe o link', texto: 'Cada processo tem um link com QR code, somente leitura. Mande pelo WhatsApp e pronto.' }
+      ],
+      processos: [
+        { nome: 'Ação Trabalhista — Silva x Transportes Ipê', cliente: 'João Batista da Silva', arquivos: 12, data: '14 de agosto' },
+        { nome: 'Inventário — Espólio de Maria Ferreira', cliente: 'Ana Ferreira Lopes', arquivos: 34, data: '9 de agosto' },
+        { nome: 'Divórcio consensual — Souza', cliente: 'Carlos e Regina Souza', arquivos: 7, data: '2 de agosto' }
+      ],
+      arquivos: [
+        { nome: 'Contrato assinado.pdf', meta: 'PDF · 1,2 MB' },
+        { nome: 'Foto do local.jpg', meta: 'Imagem · 3,4 MB' },
+        { nome: 'Print da conversa.png', meta: 'Imagem · 820 KB' },
+        { nome: 'Depoimento.mp4', meta: 'Vídeo · 48 MB' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>
